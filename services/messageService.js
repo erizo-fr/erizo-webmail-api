@@ -8,7 +8,7 @@ module.exports.getMessages = function (imapConnection, boxName, ids, options, ca
 	logger.debug('Getting messages#' + ids + ' in box#' + boxName + ' with options ' + JSON.stringify(options));
 	imapConnection.openBox(boxName, true, function(err, box) {
 		if(err) {
-			logger.debug('Failed to open box#' + boxName + ':\n' + err);
+			logger.error('Failed to open box#' + boxName + ':\n' + err);
 			callback(err, null);
 			return;
 		}
@@ -35,7 +35,7 @@ module.exports.getMessages = function (imapConnection, boxName, ids, options, ca
 			});
 		});
 		f.once('error', function(err) {
-			logger.error('An error occured while fetching messages with options ' + JSON.stringify(options));
+			logger.error('An error occured while fetching messages with options ' + JSON.stringify(options) + ': ' + JSON.stringify(err));
 			callback(err, null);
 		});
 		f.once('end', function() {
