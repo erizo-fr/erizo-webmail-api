@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node --harmony --use_verbose_printer app.js",
-    "test": "mocha --harmony"
+    "test": "NODE_ENV=test mocha --harmony-generators --reporter spec --ui bdd"
   },
   "dependencies": {
     "imap": "^0.8.12",
@@ -19,7 +19,9 @@
     "koa-bodyparser": "^1.0.1"
   },
   "devDependencies": {
+    "should": "^3.1.0",
     "supertest": "^0.12.1",
-    "mocha": "^1.18.2"
+    "mocha": "^1.18.2",
+    "sinon": "^1.10.3"
   }
 }
