@@ -3,11 +3,54 @@ var MODULE_NAME = 'MessageController';
 
 var logger = require('log4js').getLogger(MODULE_NAME);
 var imapManager = require('../lib/imapManager');
+var smtpManager = require('../lib/smtpManager');
 var messageService = require('../services/messageService');
 
 var PATTERN_IDS = new RegExp('^(\\d+(:\\d+)?)(,(\\d+(:\\d+)?))*$');
 var ALLOWED_BODIES = ['HEADER', 'TEXT', '']; //TODO: Change it to a regex
 var DEFAULT_BODIES = '';
+
+
+module.exports.postMessage = function *() {
+	this.checkBody('from').notEmpty().trim();
+	this.checkBody('to').optional().trim().notEmpty();
+	this.checkBody('cc').optional().trim().notEmpty();
+	this.checkBody('bcc').optional().trim().notEmpty();
+	this.checkBody('replyTo').optional().trim().notEmpty();
+	this.checkBody('inReplyTo').optional().trim().notEmpty();
+	this.checkBody('references').optional().trim().notEmpty();
+	this.checkBody('subject').trim().notEmpty();
+	this.checkBody('text').optional().trim().notEmpty();
+	this.checkBody('html').optional().trim().notEmpty();
+	this.checkBody('attachments').optional().trim().notEmpty();
+	
+	if (this.errors) {
+		this.status = 400;
+        this.body = this.errors;
+        return;
+    }
+	
+	//Create the message object
+	let message = {
+		'from': this.request.body.from,
+		'to': this.request.body.to,
+		'cc': this.request.body.cc,
+		'bcc': this.request.body.bcc,
+		'replyTo': this.request.body.replyTo || this.request.body.from,
+		'inReplyTo': this.request.body.inReplyTo,
+		'references': this.request.body.references,
+		'subject': this.request.body.subject,
+		'text': this.request.body.text,
+		'html': this.request.body.html,
+		'attachments': this.request.body.attachments,
+	};
+	
+	let smtpConnection = smtpManager.getConnection(this.session.username, this.session.password); 
+	let result = yield messageService.sendMessageT(smtpConnection, message);
+	
+	this.body = result.messageId || '';
+	this.status = 200;
+};
 
 
 module.exports.getMessages = function *() {

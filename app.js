@@ -36,10 +36,11 @@ app.use(koaValidate());
 //Router
 app.use(koaRouter(app));
 app.post('/login', authController.login);
-app.get('/logout', authController.login);
+app.post('/logout', authController.login);
 app.get('/boxes', authController.authRequired, boxController.getBoxes);
 app.get('/boxes/:box', authController.authRequired, boxController.getBox);
 app.get('/boxes/:box/messages', authController.authRequired, messageController.getMessages);
+app.post('/messages', authController.authRequired, messageController.postMessage);
 
 //Compress
 app.use(koaCompress());

@@ -22,16 +22,26 @@ module.exports.getMessagesByIdsT = function (imapConnection, boxName, ids, optio
 	};
 };
 
+module.exports.sendMessage = function (smtpConnection, message, callback) {
+	return sendMessage(smtpConnection, message, callback);
+};
+module.exports.sendMessageT = function (smtpConnection, message) {
+	return function (callback) {
+		module.exports.sendMessage(smtpConnection, message, callback);
+	};
+};
+
+
 
 
 function getMessages(imapConnection, boxName, ids, seqs, options, callback) {
-	logger.debug('Getting messages by seqs#' + seqs + ' or ids#' + ids + ' in box#' + boxName + ' with options ' + JSON.stringify(options));
-	if(ids && seqs || (!ids && !seqs)) {
+	logger.info('Getting messages by seqs#' + seqs + ' or ids#' + ids + ' in box#' + boxName + ' with options ' + JSON.stringify(options));
+	if (ids && seqs || (!ids && !seqs)) {
 		let err = new Error('Either ids or seqs must be defined');
 		callback(err, null);
 		return;
 	}
-	
+
 	imapConnection.openBox(boxName, true, function (err, box) {
 		if (err) {
 			logger.error('Failed to open box#' + boxName + ':\n' + err);
@@ -41,7 +51,7 @@ function getMessages(imapConnection, boxName, ids, seqs, options, callback) {
 
 		let messages = [];
 		let f;
-		if(ids) {
+		if (ids) {
 			f = imapConnection.fetch(ids, options);
 		} else {
 			f = imapConnection.seq.fetch(seqs, options);
@@ -60,7 +70,7 @@ function getMessages(imapConnection, boxName, ids, seqs, options, callback) {
 				});
 				stream.once('end', function () {
 					logger.debug('Message#' + seqno + ': Body [' + info.wich + '] received');
-					
+
 				});
 
 
@@ -78,5 +88,18 @@ function getMessages(imapConnection, boxName, ids, seqs, options, callback) {
 			logger.debug('All messages received');
 			callback(null, messages);
 		});
+	});
+}
+
+function sendMessage(smtpConnection, message, callback) {
+	logger.info('Sending a new message');
+
+	smtpConnection.sendMail(message, function (err, info) {
+		if (err) {
+			logger.error('Failed to send message: ' + err);
+		} else {
+			logger.debug('Message sent: ' + info.response);
+		}
+		callback(err, info);
 	});
 }
