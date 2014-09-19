@@ -1,7 +1,18 @@
 'use strict';
 var MODULE_NAME = 'appContext';
 
-require('log4js').configure('./conf/log4js-test.json');
+require('log4js').configure({
+	"appenders": [
+		{
+			"category": "tests",
+			"type": "console"
+		}
+	],
+	"levels": {
+		"tests": "ERROR"
+	},
+	"replaceConsole": false
+});
 var logger = require('log4js').getLogger(MODULE_NAME);
 var nconf = require('nconf');
 require('./imapContext');
