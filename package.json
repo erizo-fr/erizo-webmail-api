@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node --harmony --use_verbose_printer app.js",
-    "test": "NODE_ENV=test mocha --harmony-generators --reporter spec --ui bdd"
+    "test": "mocha test/*.coffee --harmony --reporter spec --compilers coffee:coffee-script/register"
   },
   "dependencies": {
     "imap": "^0.8.12",
@@ -18,12 +18,16 @@
     "koa-validate": "^0.1.0",
     "koa-bodyparser": "^1.0.1",
     "nodemailer": "^1.2.1",
-    "nodemailer-smtp-transport": "^0.1.12"
+    "nodemailer-smtp-transport": "^0.1.12",
+    "nconf": "^0.6.9"
   },
   "devDependencies": {
+    "hoodiecrow": "^1.1.21",
     "should": "^3.1.0",
     "supertest": "^0.12.1",
-    "mocha": "^1.18.2",
-    "sinon": "^1.10.3"
+    "mocha": "*",
+    "sinon": "^1.10.3",
+    "mocha-cakes": "^0.9.0",
+    "coffee-script": "^1.8.0"
   }
 }
