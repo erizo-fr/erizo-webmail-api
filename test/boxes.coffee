@@ -25,7 +25,8 @@ Feature "Get folders",
 			And "the response should be a HTTP 200", ->
 				result.statusCode.should.be.exactly 200
 			And "the response should contains the folder list", ->
-				body = JSON.parse(result.text);
+				body = JSON.parse(result.text)
+				console.log(body)
 				should.exist body['INBOX']
 				should.exist body['Drafts']
 				should.exist body['Sent']
