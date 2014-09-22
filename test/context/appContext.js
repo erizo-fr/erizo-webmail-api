@@ -27,6 +27,18 @@ module.exports.login = function (callback, username, password) {
 		});
 };
 
+module.exports.logout = function (callback) {
+	logger.debug('Perform logout request');
+
+	request.post('/logout')
+		.expect(200)
+		.end(function (err, res) {
+			logger.debug('Logout request returned');
+			callback(err, res);
+		});
+};
+
+
 //Load the configuration
 nconf.env().argv();
 nconf.defaults({

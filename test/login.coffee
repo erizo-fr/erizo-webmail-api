@@ -14,7 +14,7 @@ sendLogin = (username, password, callback) ->
 Feature "Login",
 	"As a user",
 	"I want to log into the application",
-	"So that a can use it", ->
+	"So that I can use it", ->
 
 		Scenario "Valid login request", ->
 			result = null

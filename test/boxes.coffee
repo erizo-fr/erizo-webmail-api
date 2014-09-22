@@ -3,17 +3,32 @@ should = require('should')
 app = require('./context/appContext')
 request = app.request
 
-before (done)->
-	app.login(done);
-
 Feature "Get folders",
 	"As a user",
 	"I want to get the folder list in my mailbox",
 	"So that a can use it to fetch my mails", ->
+		
+		Scenario "Unauthenticated user", ->
+			result = null;
+			error = null;
+			Given "An unauthenticated user", (done)->
+				app.logout(done)
+			When "I send a folder request", (done)->
+				request.get('/boxes').end (err, res)->
+					error = err;
+					result = res;
+					done();
+			Then "it should get a result", ->
+				should.not.exist error
+				should.exist result
+			And "the response should be a HTTP 401", ->
+				result.statusCode.should.be.exactly 401
 
 		Scenario "Get folders", ->
 			result = null;
 			error = null;
+			Given "An authenticated user", (done)->
+				app.login(done)
 			When "I send a folder request", (done)->
 				request.get('/boxes').end (err, res)->
 					error = err;
@@ -26,7 +41,6 @@ Feature "Get folders",
 				result.statusCode.should.be.exactly 200
 			And "the response should contains the folder list", ->
 				body = JSON.parse(result.text)
-				console.log(body)
 				should.exist body['INBOX']
 				should.exist body['Drafts']
 				should.exist body['Sent']
@@ -46,6 +60,23 @@ Feature "Get folder",
 	"As a user",
 	"I want to get the folder data in my mailbox",
 	"So that a can use it to fetch my mails", ->
+		
+		Scenario "Unauthenticated user", ->
+			result = null
+			error = null
+			folder = null
+			Given "An unauthenticated user", (done)->
+				app.logout(done)
+			When "I send a folder request", (done)->
+				request.get('/boxes/INBOX').end (err, res)->
+					error = err;
+					result = res;
+					done();
+			Then "it should get a result", ->
+				should.not.exist error
+				should.exist result
+			And "the response should be a HTTP 401", ->
+				result.statusCode.should.be.exactly 401
 
 		Scenario "Get an existing folder", ->
 			result = null
@@ -53,6 +84,8 @@ Feature "Get folder",
 			folder = null
 			Given "An valid folder", ->
 				folder = 'CustomFolderWithChild'
+			And "An authenticated user", (done)->
+				app.login(done)
 			When "I send a folder request", (done)->
 				request.get('/boxes/' + folder).end (err, res)->
 					error = err
@@ -76,6 +109,8 @@ Feature "Get folder",
 			folder = null
 			Given "An invalid folder", ->
 				folder = 'anInvalidFolder'
+			And "An authenticated user", (done)->
+				app.login(done)
 			When "I send a folder request", (done)->
 				request.get('/boxes/' + folder).end (err, res)->
 					error = err
