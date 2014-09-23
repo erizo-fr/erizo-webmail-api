@@ -4,5 +4,8 @@
 			"type": "console"
 		}
 	],
+	"levels": {
+        "[all]": "WARN"
+	},
 	"replaceConsole": false
 }

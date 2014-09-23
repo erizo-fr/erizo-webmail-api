@@ -16,15 +16,25 @@ var imapServer = module.exports = hoodiecrow({
 		"INBOX": {
 			messages: [
 				{
-					raw: "From: sender name <sender@example.com>\r\n" +
-						"To: Receiver name <receiver@example.com>\r\n" +
-						"Subject: hello 1\r\n" +
-						"Message-Id: <abcde>\r\n" +
+					uid: 12,
+					raw: "From: sender one <sender.1@example.com>\r\n" +
+						"To: Me <receiver@example.com>\r\n" +
+						"Subject: hello from 1\r\n" +
+						"Message-Id: <1>\r\n" +
 						"Date: Fri, 13 Sep 2013 15:01:00 +0300\r\n" +
 						"\r\n" +
 						"World 1!"
+				}, {
+					uid: 13,
+					raw: "From: sender two <sender.2@example.com>\r\n" +
+						"To: Me <receiver@example.com>\r\n" +
+						"Subject: hello from 2\r\n" +
+						"Message-Id: <2>\r\n" +
+						"Date: Fri, 14 Sep 2013 08:12:15 +0300\r\n" +
+						"\r\n" +
+						"World 1!"
 				}
-                    ]
+			]
 		},
 		"": {
 			"separator": "+",
