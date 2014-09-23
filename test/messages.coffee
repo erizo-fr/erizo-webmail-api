@@ -2,6 +2,56 @@ require('mocha-cakes')
 should = require('should')
 app = require('./context/appContext')
 request = app.request
+
+Feature "Send message",
+	"As a user",
+	"I want to send some messages to my friends",
+	"So I can tell craps about them", ->
+	
+		Scenario "Unauthenticated user", ->
+			result = null
+			error = null
+			Given "An unauthenticated user", (done)->
+				app.logout(done)
+			When "I send a new message", (done)->
+				request.post('/messages').end (err, res)->
+					error = err
+					result = res
+					done()
+			Then "it should get a result", ->
+				should.not.exist error
+				should.exist result
+			And "the response should be a HTTP 401", ->
+				result.statusCode.should.be.exactly 401
+				
+		Scenario "Send a message", ->
+			result = null
+			error = null
+			Given "An authenticated user", (done)->
+				app.login(done)
+			When "I send a new message", (done)->
+				body = {
+					from: "testuser@mydomain.com",
+					to: "testuser@mydomain.com",
+					subject: "New message to myself",
+					test: "It's me, Mario !"
+				}
+				request.post('/messages')
+				.send body
+				.end (err, res)->
+					error = err
+					result = res
+					done()
+			Then "it should get a result", ->
+				should.not.exist error
+				should.exist result
+			And "the response should be a HTTP 200", ->
+				result.statusCode.should.be.exactly 200
+			And "the message should be in the sent box", ->
+				should.exist undefined
+			And "the message should be in the the recipent INBOX", ->
+				should.exist undefined
+				
 	
 Feature "Get messages",
 	"As a user",
@@ -17,7 +67,7 @@ Feature "Get messages",
 				request.get('/boxes/INBOX/messages?ids=1').end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -33,7 +83,7 @@ Feature "Get messages",
 				request.get('/boxes/INBOX/messages?ids=13').end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -58,7 +108,7 @@ Feature "Get messages",
 				request.get('/boxes/INBOX/messages?ids=99999999').end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -79,7 +129,7 @@ Feature "Get messages",
 				request.get('/boxes/INBOX/messages?seqs=1').end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -104,7 +154,7 @@ Feature "Get messages",
 				request.get('/boxes/INBOX/messages?seqs=99999999').end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -125,7 +175,7 @@ Feature "Get messages",
 				request.get('/boxes/INBOX/messages?seqs=1&ids=1').end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -145,7 +195,7 @@ Feature "Get messages",
 				request.get('/boxes/INBOX/messages').end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -165,7 +215,7 @@ Feature "Get messages",
 				request.get('/boxes/INBOX/messages?seqs=1&fetchStruct=true').end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -192,7 +242,7 @@ Feature "Get messages",
 				request.get('/boxes/INBOX/messages?seqs=1&fetchStruct=false').end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -217,7 +267,7 @@ Feature "Get messages",
 				request.get('/boxes/INBOX/messages?seqs=1&fetchEnvelope=true').end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -243,7 +293,7 @@ Feature "Get messages",
 				request.get('/boxes/INBOX/messages?seqs=1&fetchEnvelope=false').end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -269,7 +319,7 @@ Feature "Get messages",
 				request.get('/boxes/INBOX/messages?seqs=1&fetchSize=true').end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -277,7 +327,6 @@ Feature "Get messages",
 				result.statusCode.should.be.exactly 200
 			And "the response should contains the message size", ->
 				body = JSON.parse(result.text)
-				console.log body
 				should.exist body
 				body.should.be.instanceof Array
 				body.should.have.lengthOf 1
@@ -297,7 +346,7 @@ Feature "Get messages",
 				request.get('/boxes/INBOX/messages?seqs=1&fetchSize=false').end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -305,7 +354,6 @@ Feature "Get messages",
 				result.statusCode.should.be.exactly 200
 			And "the response should not contains the message size", ->
 				body = JSON.parse(result.text)
-				console.log body
 				should.exist body
 				body.should.be.instanceof Array
 				body.should.have.lengthOf 1
@@ -323,7 +371,7 @@ Feature "Get messages",
 				request.get('/boxes/INBOX/messages?ids=1:').end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -339,7 +387,7 @@ Feature "Get messages",
 				request.get('/boxes/INBOX/messages?seqs=1:').end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result

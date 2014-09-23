@@ -4,7 +4,7 @@ var MODULE_NAME = 'appContext';
 require('log4js').configure('./test/conf/log4js.json');
 var logger = require('log4js').getLogger(MODULE_NAME);
 var nconf = require('nconf');
-require('./imapContext');
+require('./messageContext');
 var app = require('../../lib/app');
 var request = require('supertest').agent(app.listen());
 
@@ -51,6 +51,6 @@ nconf.defaults({
 	},
 	'smtp': {
 		'host': 'localhost',
-		'port': 25
+		'port': 1125
 	}
 });
