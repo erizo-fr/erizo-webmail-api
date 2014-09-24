@@ -47,8 +47,12 @@ Feature "Send message",
 				should.exist result
 			And "the response should be a HTTP 200", ->
 				result.statusCode.should.be.exactly 200
-			And "the message should be in the sent box", ->
-				should.exist undefined
+			And "the message should be in the sent box", (done)->
+				request.get('/boxes/INBOX/messages?seqs=*').end (err, res)->
+					should.not.exist err
+					should.exist res
+					console.log res
+					
 			And "the message should be in the the recipent INBOX", ->
 				should.exist undefined
 				

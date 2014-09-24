@@ -4,6 +4,7 @@
 		"port": 25,
 		"secure": false,
 		"ignoreTLS": true,
-		"authMethod": "PLAIN"
+		"authMethod": "PLAIN",
+		"authRequired": true
 	}
 }

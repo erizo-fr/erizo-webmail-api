@@ -73,8 +73,11 @@ imapServer.listen(imapPort, function () {
 /*
  * SMTP Server
  */
-var smtpServer = simplesmtp.createSimpleServer({
-	SMTPBanner: "Hoodiecrow"
+var smtpServer = simplesmtp.createServer({
+	debug: true,
+	SMTPBanner: "Hoodiecrow",
+	requireAuthentication: false,
+	
 }, function (req) {
 	var data = [];
 	var dataLen = 0;
