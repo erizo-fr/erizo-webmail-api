@@ -27,14 +27,20 @@ Feature "Send message",
 		Scenario "Send a message", ->
 			result = null
 			error = null
+			messageSubject = 'Feature SendMessage Scenario SendMessage'
+			messageFrom = 'testuser@mydomain.com'
+			messageTo = 'testuser@mydomain.com'
+			messageText = 'It\'s me, Mario !'
+			messageInInbox = null
+			messageInSent = null
 			Given "An authenticated user", (done)->
 				app.login(done)
 			When "I send a new message", (done)->
 				body = {
-					from: "testuser@mydomain.com",
-					to: "testuser@mydomain.com",
-					subject: "New message to myself",
-					test: "It's me, Mario !"
+					from: messageFrom,
+					to: messageTo,
+					subject: messageSubject,
+					text: messageText
 				}
 				request.post('/messages')
 				.send body
@@ -48,14 +54,57 @@ Feature "Send message",
 			And "the response should be a HTTP 200", ->
 				result.statusCode.should.be.exactly 200
 			And "the message should be in the sent box", (done)->
-				request.get('/boxes/INBOX/messages?seqs=*').end (err, res)->
-					should.not.exist err
-					should.exist res
-					console.log res
+				request.get('/boxes/Sent').end (err, res)->
+					if err
+						done err, res
+					else
+						res.statusCode.should.be.exactly 200
+						box = JSON.parse res.text
+						should.exist box.highestmodseq
+						request.get('/boxes/Sent/messages?fetchEnvelope=true&seqs=' + box.highestmodseq).end (err, res)->
+							should.not.exist err
+							should.exist res
+							should.exist res.text
+							messageInSent = JSON.parse res.text
+							should.exist messageInSent
+							messageInSent.should.be.instanceof Array
+							messageInSent.should.have.lengthOf 1
+							messageAttrs = messageInSent[0].attrs
+							should.exist messageAttrs
+							should.exist messageAttrs.modseq
+							messageAttrs.modseq.should.be.exactly box.highestmodseq
+							should.exist messageAttrs.envelope
+							should.exist messageAttrs.envelope.subject
+							messageAttrs.envelope.subject.should.be.exactly messageSubject
+							done()
+							
 					
-			And "the message should be in the the recipent INBOX", ->
-				should.exist undefined
-				
+			And "the message should be in the the recipent INBOX", (done)->
+				request.get('/boxes/INBOX').end (err, res)->
+					if err
+						done(err, res)
+					else
+						#Get the last message in box
+						res.statusCode.should.be.exactly 200
+						box = JSON.parse res.text
+						should.exist box.highestmodseq
+						request.get('/boxes/INBOX/messages?fetchEnvelope=true&seqs=' + box.highestmodseq).end (err, res)->
+							should.not.exist err
+							should.exist res
+							should.exist res.text
+							messageInInbox = JSON.parse res.text
+							should.exist messageInInbox
+							messageInInbox.should.be.instanceof Array
+							messageInInbox.should.have.lengthOf 1
+							messageAttrs = messageInInbox[0].attrs
+							should.exist messageAttrs
+							should.exist messageAttrs.modseq
+							messageAttrs.modseq.should.be.exactly box.highestmodseq
+							should.exist messageAttrs.envelope
+							should.exist messageAttrs.envelope.subject
+							messageAttrs.envelope.subject.should.be.exactly messageSubject
+							done()
+
 	
 Feature "Get messages",
 	"As a user",

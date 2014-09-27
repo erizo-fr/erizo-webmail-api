@@ -70,6 +70,8 @@ imapServer.listen(imapPort, function () {
 	logger.info('IMAP server is now listening on ' + imapPort);
 });
 
+
+
 /*
  * SMTP Server
  */
@@ -77,25 +79,38 @@ var smtpServer = simplesmtp.createServer({
 	debug: true,
 	SMTPBanner: "Hoodiecrow",
 	requireAuthentication: false,
-	
-}, function (req) {
-	var data = [];
-	var dataLen = 0;
-	req.on("data", function (chunk) {
-		if (!chunk || !chunk.length) {
-			return;
-		}
-		data.push(chunk);
-		dataLen += chunk.length;
-	});
-	req.on("end", function () {
-		var message = Buffer.concat(data, dataLen);
-		imapServer.appendMessage("INBOX", [], false, message.toString("binary"));
-	});
-	req.accept();
+	disableDNSValidation: true,
+
+});
+
+smtpServer.on('startData', function (connection) {
+	logger.debug('Incomming SMTP Message (from:', connection.from + 'to:', connection.to + ')');
+	connection.messageData = [];
+	connection.messageDataLength = 0;
+});
+
+smtpServer.on('data', function (connection, chunk) {
+	if (!chunk || !chunk.length) {
+		return;
+	}
+	logger.debug('New message data');
+	connection.messageData.push(chunk);
+	connection.messageDataLength += chunk.length;
+});
+
+smtpServer.on('dataReady', function (connection, callback) {
+	var message = Buffer.concat(connection.messageData, connection.messageDataLength);
+	imapServer.appendMessage('INBOX', [], false, message.toString('binary'));
+	logger.debug('New SMTP message delivered ' + message);
+
+	callback(null, 'ABC1');
 });
 
 const smtpPort = conf.get('smtp:port') || 1125;
-smtpServer.listen(smtpPort, function () {
-	logger.info('SMTP server is now listening on ' + smtpPort);
+smtpServer.listen(smtpPort, function (err) {
+	if (err) {
+		logger.error('SMTP server failed to listen: ' + err);
+	} else {
+		logger.info('SMTP server is now listening on ' + smtpPort);
+	}
 });
