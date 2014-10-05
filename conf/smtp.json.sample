@@ -1,5 +1,6 @@
 {
 	"smtp": {
+		"name": "localhost",
 		"host": "localhost",
 		"port": 25,
 		"secure": false,
