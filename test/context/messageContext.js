@@ -37,7 +37,16 @@ var imapServer = module.exports = hoodiecrow({
 						"Message-Id: <2>\r\n" +
 						"Date: Fri, 14 Sep 2013 08:12:15 +0300\r\n" +
 						"\r\n" +
-						"World 1!"
+						"World 2!"
+				}, {
+					uid: 14,
+					raw: "From: sender two <sender.2@example.com>\r\n" +
+						"To: Me <receiver@example.com>\r\n" +
+						"Subject: Message to be deleted\r\n" +
+						"Message-Id: <3>\r\n" +
+						"Date: Fri, 14 Sep 2013 08:12:15 +0300\r\n" +
+						"\r\n" +
+						"This message will be deleted during tests"
 				}
 			]
 		},
