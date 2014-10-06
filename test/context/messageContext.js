@@ -38,15 +38,6 @@ var imapServer = module.exports = hoodiecrow({
 						"Date: Fri, 14 Sep 2013 08:12:15 +0300\r\n" +
 						"\r\n" +
 						"World 2!"
-				}, {
-					uid: 14,
-					raw: "From: sender two <sender.2@example.com>\r\n" +
-						"To: Me <receiver@example.com>\r\n" +
-						"Subject: Message to be deleted\r\n" +
-						"Message-Id: <3>\r\n" +
-						"Date: Fri, 14 Sep 2013 08:12:15 +0300\r\n" +
-						"\r\n" +
-						"This message will be deleted during tests"
 				}
 			]
 		},
@@ -66,6 +57,33 @@ var imapServer = module.exports = hoodiecrow({
 				"CustomFolderWithChild": {
 					"folders": {
 						"CustomSubFolder": {}
+					}
+				},
+				"features": {
+					"folders": {
+						"deleteMessage": {
+							messages: [
+								{
+									uid: 1,
+									raw: "From: sender one <sender.1@example.com>\r\n" +
+										"To: Me <receiver@example.com>\r\n" +
+										"Subject: This message will remain\r\n" +
+										"Message-Id: <1>\r\n" +
+										"Date: Fri, 13 Sep 2013 15:01:00 +0300\r\n" +
+										"\r\n" +
+										"I will survive !"
+								}, {
+									uid: 2,
+									raw: "From: sender two <sender.2@example.com>\r\n" +
+										"To: Me <receiver@example.com>\r\n" +
+										"Subject: This message will not remain\r\n" +
+										"Message-Id: <2>\r\n" +
+										"Date: Fri, 14 Sep 2013 08:12:15 +0300\r\n" +
+										"\r\n" +
+										"Oh no !"
+								}
+							]
+						},
 					}
 				}
 			}

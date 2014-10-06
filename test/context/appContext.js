@@ -51,6 +51,7 @@ nconf.defaults({
 	},
 	'smtp': {
 		'host': 'localhost',
+		'name': 'localhost',
 		'port': 1125,
 		'authRequired': false
 	}

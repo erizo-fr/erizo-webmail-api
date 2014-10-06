@@ -15,7 +15,7 @@ Feature "Delete message",
 			Given "An unauthenticated user", (done)->
 				app.logout(done)
 			When "I send a new message", (done)->
-				request.delete('/boxes/INBOX/messages/14').end (err, res)->
+				request.delete('/boxes/features+deleteMessage/messages/42').end (err, res)->
 					error = err
 					result = res
 					done()
@@ -32,17 +32,17 @@ Feature "Delete message",
 			Given "An authenticated user", (done)->
 				app.login(done)
 			And "An existing message", (done) ->
-				request.get('/boxes/INBOX/messages/14').end (err, res)->
+				request.get('/boxes/features+deleteMessage/messages/2').end (err, res)->
 					should.exist res
 					should.not.exist err
 					body = JSON.parse(res.text)
 					should.exist body
 					should.exist body.attrs
 					should.exist body.attrs.uid
-					body.attrs.uid.should.be.exactly 14
+					body.attrs.uid.should.be.exactly 2
 					done()
 			When "I delete a message", (done)->
-				request.delete('/boxes/INBOX/messages/14').end (err, res)->
+				request.delete('/boxes/features+deleteMessage/messages/2').end (err, res)->
 					error = err
 					result = res
 					done()
@@ -52,18 +52,18 @@ Feature "Delete message",
 			And "the response should be a HTTP 200", ->
 				result.statusCode.should.be.exactly 200
 			And "The message should not exist any more", (done)->
-				request.get('/boxes/INBOX/messages/14').end (err, res)->
+				request.get('/boxes/features+deleteMessage/messages/2').end (err, res)->
 					should.exist res
 					should.not.exist err
 					res.statusCode.should.be.exactly 404
 					done()
 			And "The other messages should still exist", (done)->
-				request.get('/boxes/INBOX/messages/13').end (err, res)->
+				request.get('/boxes/features+deleteMessage/messages/1').end (err, res)->
 					should.exist res
 					should.not.exist err
 					body = JSON.parse(res.text)
 					should.exist body
 					should.exist body.attrs
 					should.exist body.attrs.uid
-					body.attrs.uid.should.be.exactly 13
+					body.attrs.uid.should.be.exactly 1
 					done()
