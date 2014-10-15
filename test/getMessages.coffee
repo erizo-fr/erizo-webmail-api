@@ -49,7 +49,7 @@ Feature "Get messages",
 				should.exist messageAttrs.uid
 				messageAttrs.uid.should.be.exactly 13
 				
-		Scenario "Get a non existant message by uid", ->
+		Scenario "Search a non existant message by uid", ->
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
@@ -133,7 +133,7 @@ Feature "Get messages",
 				should.exist messageAttrs.modseq
 				messageAttrs.modseq.should.be.exactly '1'
 				
-		Scenario "Get a non existant message by seq", ->
+		Scenario "Search a non existant message by seq", ->
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
