@@ -81,7 +81,31 @@ Feature "Delete message",
 					should.not.exist err
 					res.statusCode.should.be.exactly 200
 					done()
-
+					
+					
+		Scenario "Delete a non-existant message by id", ->
+			result = null
+			error = null
+			messageId = null
+			
+			Given "An authenticated user", (done)->
+				app.login(done)
+			And "An non-existing message", (done) ->
+				request.get('/boxes/features+deleteMessage/messages/999999').end (err, res)->
+					should.exist res
+					should.not.exist err
+					res.statusCode.should.be.exactly 404
+					done()
+			When "I delete a message", (done)->
+				request.delete('/boxes/features+deleteMessage/messages/999999?realDelete=true').end (err, res)->
+					error = err
+					result = res
+					done()
+			Then "it should get a result", ->
+				should.not.exist error
+				should.exist result
+			And "the response should be a HTTP 404", ->
+				result.statusCode.should.be.exactly 404
 					
 					
 					
