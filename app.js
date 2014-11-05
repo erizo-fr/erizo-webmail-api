@@ -10,5 +10,17 @@ var app = require('./lib/app');
 
 //Start listening
 if (!module.parent) {
-	http.createServer(app, conf.get('app:port') || 8080);
+    process.on('SIGINT', function () {
+        logger.warn('SIGINT received');
+        process.exit(0);
+    });
+    process.on('SIGBREAK', function () {
+        logger.warn('SIGBREAK received');
+        process.exit(0);
+    });
+    process.on('exit', function (code) {
+        logger.warn('Process terminating');
+    });
+
+    http.createServer(app, conf.get('app:port') || 8080);
 }
