@@ -3,9 +3,9 @@ should = require('should')
 app = require('./context/appContext')
 request = app.request
 
-Feature "Get Account data",
+Feature "Get user data",
 	"As a user",
-	"I want to get my account data",
+	"I want to get my user data",
 	"So I can customize the application behavior", ->
 	
 	
@@ -14,8 +14,8 @@ Feature "Get Account data",
 			error = null
 			Given "An unauthenticated user", (done)->
 				app.logout(done)
-			When "I get my account data", (done)->
-				request.get('/account/data').end (err, res)->
+			When "I get my user data", (done)->
+				request.get('/account/userdata').end (err, res)->
 					error = err
 					result = res
 					done()
@@ -32,8 +32,8 @@ Feature "Get Account data",
 			
 			Given "An authenticated user", (done)->
 				app.login(done)
-			When "I get my account data", (done)->
-				request.get('/account/data').end (err, res)->
+			When "I get my user data", (done)->
+				request.get('/account/userdata').end (err, res)->
 					error = err
 					result = res
 					done()
@@ -42,5 +42,5 @@ Feature "Get Account data",
 				should.exist result
 			And "the response should be a HTTP 200", ->
                 result.statusCode.should.be.exactly 200
-                console.log result
-			
+			And "the response should contains the user data", ->
+                JSON.parse(result.text)
