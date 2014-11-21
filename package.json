@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node --harmony --use_verbose_printer app.js",
-    "test": "mocha test/u*.coffee --harmony --reporter spec --compilers coffee:coffee-script/register"
+    "test": "mocha test/*.coffee --harmony --reporter spec --compilers coffee:coffee-script/register"
   },
   "dependencies": {
     "async": "^0.9.0",

@@ -5,7 +5,7 @@
 		}
 	],
 	"levels": {
-        "[all]": "DEBUG"
+        "[all]": "ERROR"
 	},
 	"replaceConsole": false
 }

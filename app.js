@@ -20,6 +20,7 @@ if (!module.parent) {
     });
     process.on('exit', function (code) {
         logger.warn('Process terminating');
+        process.exit(0);
     });
 
     http.createServer(app, conf.get('app:port') || 8080);
