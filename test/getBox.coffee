@@ -3,18 +3,18 @@ should = require('should')
 app = require('./context/appContext')
 request = app.request
 
-Feature "Get folder",
+Feature "Get box",
 	"As a user",
-	"I want to get the folder data in my mailbox",
+	"I want to get the box data in my mailbox",
 	"So that a can use it to fetch my mails", ->
 		
 		Scenario "Unauthenticated user", ->
 			result = null
 			error = null
-			folder = null
+			box = null
 			Given "An unauthenticated user", (done)->
 				app.logout(done)
-			When "I send a folder request", (done)->
+			When "I send a box request", (done)->
 				request.get('/boxes/INBOX').end (err, res)->
 					error = err;
 					result = res;
@@ -25,16 +25,16 @@ Feature "Get folder",
 			And "the response should be a HTTP 401", ->
 				result.statusCode.should.be.exactly 401
 
-		Scenario "Get an existing folder", ->
+		Scenario "Get an existing box", ->
 			result = null
 			error = null
-			folder = null
-			Given "An valid folder", ->
-				folder = 'CustomFolderWithChild'
+			box = null
+			Given "An valid box", ->
+				box = 'CustomFolderWithChild'
 			And "An authenticated user", (done)->
 				app.login(done)
-			When "I send a folder request", (done)->
-				request.get('/boxes/' + folder).end (err, res)->
+			When "I send a box request", (done)->
+				request.get('/boxes/' + box).end (err, res)->
 					error = err
 					result = res
 					done();
@@ -43,22 +43,22 @@ Feature "Get folder",
 				should.exist result
 			And "the response should be a HTTP 200", ->
 				result.statusCode.should.be.exactly 200
-			And "the response should contains the folder data", ->
+			And "the response should contains the box data", ->
 				body = JSON.parse(result.text);
 				should.exist body
 				should.exist body.name
 				body.name.should.be.type('string')
 				body.name.should.be.exactly('CustomFolderWithChild')
 				
-		Scenario "Get an non-existing folder", ->
+		Scenario "Get an non-existing box", ->
 			result = null
 			error = null
-			folder = null
-			Given "An valid folder", ->
-				folder = 'CustomFolderWithChild'
+			box = null
+			Given "An valid box", ->
+				box = 'CustomFolderWithChild'
 			And "An authenticated user", (done)->
 				app.login(done)
-			When "I send a folder request", (done)->
+			When "I send a box request", (done)->
 				request.get('/boxes/thisIsAnNonExistantFolder').end (err, res)->
 					error = err
 					result = res
@@ -69,16 +69,16 @@ Feature "Get folder",
 			And "the response should be a HTTP 404", ->
 				result.statusCode.should.be.exactly 404
 
-		Scenario "Get a folder that does not exist", ->
+		Scenario "Get a box that does not exist", ->
 			result = null
 			error = null
-			folder = null
-			Given "An invalid folder", ->
-				folder = 'anInvalidFolder'
+			box = null
+			Given "An invalid box", ->
+				box = 'anInvalidFolder'
 			And "An authenticated user", (done)->
 				app.login(done)
-			When "I send a folder request", (done)->
-				request.get('/boxes/' + folder).end (err, res)->
+			When "I send a box request", (done)->
+				request.get('/boxes/' + box).end (err, res)->
 					error = err
 					result = res
 					done();

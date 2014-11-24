@@ -3,9 +3,9 @@ should = require('should')
 app = require('./context/appContext')
 request = app.request
 
-Feature "Get folders",
+Feature "Get boxes",
 	"As a user",
-	"I want to get the folder list in my mailbox",
+	"I want to get the boxes list in my mailbox",
 	"So that a can use it to fetch my mails", ->
 		
 		Scenario "Unauthenticated user", ->
@@ -13,7 +13,7 @@ Feature "Get folders",
 			error = null;
 			Given "An unauthenticated user", (done)->
 				app.logout(done)
-			When "I send a folder request", (done)->
+			When "I send a boxes request", (done)->
 				request.get('/boxes').end (err, res)->
 					error = err;
 					result = res;
@@ -24,12 +24,12 @@ Feature "Get folders",
 			And "the response should be a HTTP 401", ->
 				result.statusCode.should.be.exactly 401
 
-		Scenario "Get folders", ->
+		Scenario "Get boxes", ->
 			result = null;
 			error = null;
 			Given "An authenticated user", (done)->
 				app.login(done)
-			When "I send a folder request", (done)->
+			When "I send a boxes request", (done)->
 				request.get('/boxes').end (err, res)->
 					error = err;
 					result = res;
@@ -39,7 +39,7 @@ Feature "Get folders",
 				should.exist result
 			And "the response should be a HTTP 200", ->
 				result.statusCode.should.be.exactly 200
-			And "the response should contains the folder list", ->
+			And "the response should contains the box list", ->
 				body = JSON.parse(result.text)
 				should.exist body['INBOX']
 				should.exist body['Drafts']
