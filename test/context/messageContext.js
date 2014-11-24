@@ -53,15 +53,15 @@ var imapServer = module.exports = hoodiecrow({
 				"Trash": {
 					"special-use": "\\Trash",
 					messages: [
-								{
-									uid: 1,
-									raw: "From: sender one <sender.1@example.com>\r\n" +
-										"To: Me <receiver@example.com>\r\n" +
-										"Subject: Is in trash\r\n" +
-										"Message-Id: <trash_1>\r\n" +
-										"Date: Fri, 13 Sep 2013 15:01:00 +0300\r\n" +
-										"\r\n" +
-										"I have been deleted :'("
+						{
+							uid: 1,
+							raw: "From: sender one <sender.1@example.com>\r\n" +
+								"To: Me <receiver@example.com>\r\n" +
+								"Subject: Is in trash\r\n" +
+								"Message-Id: <trash_1>\r\n" +
+								"Date: Fri, 13 Sep 2013 15:01:00 +0300\r\n" +
+								"\r\n" +
+								"I have been deleted :'("
 								},
 							]
 				},
@@ -73,6 +73,11 @@ var imapServer = module.exports = hoodiecrow({
 				},
 				"features": {
 					"folders": {
+						"createFolder": {
+							"folders": {
+								"thisFolderExists": {}
+							}
+						},
 						"deleteMessage": {
 							messages: [
 								{
