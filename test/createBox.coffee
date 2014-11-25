@@ -64,7 +64,7 @@ Feature "Create box",
 				app.login(done)
 			And "An existant box", (done)->
 				request.get('/boxes/' + box).end (err, res)->
-					res.statusCode.should.not.be.exactly 404
+					res.statusCode.should.be.exactly 200
 					done()
 			When "I send a create box request", (done)->
 				body = {
