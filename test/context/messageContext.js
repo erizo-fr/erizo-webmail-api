@@ -83,7 +83,12 @@ var imapServer = module.exports = hoodiecrow({
 								"thisBoxExists": {}
 							}
 						},
-
+						"patchBox": {
+							"folders": {
+								"scenarioInvalidParam": {},
+								"scenarioPathChange": {},
+							}
+						},
 						"deleteMessage": {
 							messages: [
 								{
