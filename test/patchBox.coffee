@@ -99,7 +99,6 @@ Feature "Patch box",
 				.end (err, res)->
 					error = err
 					result = res
-					console.log(result)
 					done()
 			Then "it should get a result", ->
 				should.not.exist error
