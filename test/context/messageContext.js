@@ -73,9 +73,9 @@ var imapServer = module.exports = hoodiecrow({
 				},
 				"features": {
 					"folders": {
-						"createFolder": {
+						"createBox": {
 							"folders": {
-								"thisFolderExists": {}
+								"thisBoxExists": {}
 							}
 						},
 						"deleteMessage": {
