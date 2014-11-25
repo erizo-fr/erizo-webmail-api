@@ -78,6 +78,12 @@ var imapServer = module.exports = hoodiecrow({
 								"thisBoxExists": {}
 							}
 						},
+						"deleteBox": {
+							"folders": {
+								"thisBoxExists": {}
+							}
+						},
+
 						"deleteMessage": {
 							messages: [
 								{
