@@ -23,5 +23,5 @@ if (!module.parent) {
         process.exit(0);
     });
 
-    http.createServer(app, conf.get('app:port') || 8080);
+    http.createServer(app, conf.get('app:port') || 8081);
 }
