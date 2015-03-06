@@ -29,7 +29,6 @@ Feature "Update user data",
 			result = null
 			error = null
 			accountData = {   
-                email: 'usertest@test.com',
                 displayName: 'User test'
             };
 			
@@ -55,6 +54,5 @@ Feature "Update user data",
                         res.statusCode.should.be.exactly 200
                         body = JSON.parse(res.text)
                         should.exist body
-                        accountData.email.should.be.exactly body.email
                         accountData.displayName.should.be.exactly body.displayName
                         done()
