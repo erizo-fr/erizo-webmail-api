@@ -43,7 +43,9 @@ module.exports.logout = function (callback) {
 nconf.env().argv();
 nconf.defaults({
 	'app': {
-
+        "user": {
+            "defaultIdentity": '%LOGIN@testdomain'
+        }
 	},
 	'imap': {
 		'host': 'localhost',

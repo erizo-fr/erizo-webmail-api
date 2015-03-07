@@ -1,5 +1,8 @@
 {
-	"app" : {
-		"port" : 8081
-	}
+    "app": {
+        "port": 8081,
+        "user": {
+            "defaultIdentity": "%LOGIN@mydomain.org"
+        }
+    }
 }
