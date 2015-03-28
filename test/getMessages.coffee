@@ -44,10 +44,30 @@ Feature "Get messages",
 				should.exist body
 				body.should.be.instanceof Array
 				body.should.have.lengthOf 1
-				messageAttrs = body[0].attrs
-				should.exist messageAttrs
-				should.exist messageAttrs.uid
-				messageAttrs.uid.should.be.exactly 13
+				body[0].attrs.uid.should.be.exactly 13
+				
+		Scenario "Get several messages by uid", ->
+			result = null
+			error = null
+			Given "An authenticated user", (done)->
+				app.login(done);
+			When "I send a message request", (done)->
+				request.get('/boxes/INBOX/messages?ids=12&ids=13').end (err, res)->
+					error = err
+					result = res
+					done()
+			Then "it should get a result", ->
+				should.not.exist error
+				should.exist result
+			And "the response should be a HTTP 200", ->
+				result.statusCode.should.be.exactly 200
+			And "the response should contains the message list", ->
+				body = JSON.parse(result.text)
+				should.exist body
+				body.should.be.instanceof Array
+				body.should.have.lengthOf 2
+				body[0].attrs.uid.should.be.exactly 12
+				body[1].attrs.uid.should.be.exactly 13
 				
 		Scenario "Search a non existant message by uid", ->
 			result = null
@@ -87,9 +107,6 @@ Feature "Get messages",
 				result.statusCode.should.be.exactly 200
 			And "the response should contains the message", ->
 				body = JSON.parse(result.text)
-				should.exist body
-				should.exist body.attrs
-				should.exist body.attrs.uid
 				body.attrs.uid.should.be.exactly 13
 				
 		Scenario "Get a non existing message by uid", ->
@@ -128,10 +145,30 @@ Feature "Get messages",
 				should.exist body
 				body.should.be.instanceof Array
 				body.should.have.lengthOf 1
-				messageAttrs = body[0].attrs
-				should.exist messageAttrs
-				should.exist messageAttrs.modseq
-				messageAttrs.modseq.should.be.exactly '1'
+				body[0].attrs.modseq.should.be.exactly '1'
+				
+		Scenario "Get several messages by seqs", ->
+			result = null
+			error = null
+			Given "An authenticated user", (done)->
+				app.login(done);
+			When "I send a message request", (done)->
+				request.get('/boxes/INBOX/messages?seqs=1&seqs=2').end (err, res)->
+					error = err
+					result = res
+					done()
+			Then "it should get a result", ->
+				should.not.exist error
+				should.exist result
+			And "the response should be a HTTP 200", ->
+				result.statusCode.should.be.exactly 200
+			And "the response should contains the message list", ->
+				body = JSON.parse(result.text)
+				should.exist body
+				body.should.be.instanceof Array
+				body.should.have.lengthOf 2
+				body[0].attrs.modseq.should.be.exactly '1'
+				body[1].attrs.modseq.should.be.exactly '2'
 				
 		Scenario "Search a non existant message by seq", ->
 			result = null
@@ -170,9 +207,8 @@ Feature "Get messages",
 			And "the response should be a HTTP 400", ->
 				result.statusCode.should.be.exactly 400
 			And "the response should contains an error message", ->
-				text = result.res.text
-				should.exist text
-				text.should.be.exactly 'Only one of ids or seqs param must be given'
+				should.exist result.res.text
+				result.res.text.should.be.exactly 'Exactly one of ids or seqs param must be given'
 				
 		Scenario "Send a request without ids nor seqs", ->
 			result = null
@@ -190,9 +226,8 @@ Feature "Get messages",
 			And "the response should be a HTTP 400", ->
 				result.statusCode.should.be.exactly 400
 			And "the response should contains an error message", ->
-				text = result.res.text
-				should.exist text
-				text.should.be.exactly 'Only one of ids or seqs param must be given'
+				should.exist result.res.text
+				result.res.text.should.be.exactly 'Exactly one of ids or seqs param must be given'
 				
 		Scenario "Get a single message with structure", ->
 			result = null
@@ -214,12 +249,8 @@ Feature "Get messages",
 				should.exist body
 				body.should.be.instanceof Array
 				body.should.have.lengthOf 1
-				messageAttrs = body[0].attrs
-				should.exist messageAttrs
-				messageStruct = messageAttrs.struct
-				should.exist messageStruct
-				messageStruct.should.be.instanceof Array
-				messageStruct.length.should.be.above 0
+				body[0].attrs.struct.should.be.instanceof Array
+				body[0].attrs.struct.length.should.be.above 0
 				
 		Scenario "Get a single message without structure", ->
 			result = null
@@ -241,10 +272,7 @@ Feature "Get messages",
 				should.exist body
 				body.should.be.instanceof Array
 				body.should.have.lengthOf 1
-				messageAttrs = body[0].attrs
-				should.exist messageAttrs
-				messageStruct = messageAttrs.struct
-				should.not.exist messageStruct
+				should.not.exist body[0].attrs.struct
 				
 		Scenario "Get a single message with envelope", ->
 			result = null
@@ -267,10 +295,7 @@ Feature "Get messages",
 				should.exist body
 				body.should.be.instanceof Array
 				body.should.have.lengthOf 1
-				messageAttrs = body[0].attrs
-				should.exist messageAttrs
-				messageEnvelope = messageAttrs.envelope
-				should.exist messageEnvelope
+				should.exist body[0].attrs.envelope
 				
 		Scenario "Get a single message without envelope", ->
 			result = null
@@ -293,10 +318,7 @@ Feature "Get messages",
 				should.exist body
 				body.should.be.instanceof Array
 				body.should.have.lengthOf 1
-				messageAttrs = body[0].attrs
-				should.exist messageAttrs
-				messageEnvelope = messageAttrs.envelope
-				should.not.exist messageEnvelope
+				should.not.exist body[0].attrs.envelope
 				
 		Scenario "Get a single message with size", ->
 			result = null
@@ -318,12 +340,8 @@ Feature "Get messages",
 				should.exist body
 				body.should.be.instanceof Array
 				body.should.have.lengthOf 1
-				messageAttrs = body[0].attrs
-				should.exist messageAttrs
-				messageSize = messageAttrs.size
-				should.exist messageSize
-				messageSize.should.be.a.Number
-				messageSize.should.be.above 0
+				body[0].attrs.size.should.be.a.Number
+				body[0].attrs.size.should.be.above 0
 				
 		Scenario "Get a single message without size", ->
 			result = null
@@ -345,10 +363,7 @@ Feature "Get messages",
 				should.exist body
 				body.should.be.instanceof Array
 				body.should.have.lengthOf 1
-				messageAttrs = body[0].attrs
-				should.exist messageAttrs
-				messageSize = messageAttrs.size
-				should.not.exist messageSize
+				should.not.exist body[0].attrs.size
 				
 		Scenario "Send a request with an invalid ids", ->
 			result = null
