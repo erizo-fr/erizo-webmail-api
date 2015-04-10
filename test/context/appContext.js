@@ -5,6 +5,7 @@ require('log4js').configure('./test/conf/log4js.json');
 var logger = require('log4js').getLogger(MODULE_NAME);
 var nconf = require('nconf');
 require('./messageContext');
+require('./davContext');
 var app = require('../../lib/app');
 var request = require('supertest').agent(app.listen());
 
