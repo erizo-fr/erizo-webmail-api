@@ -1,0 +1,10 @@
+{
+	"dav": {
+		"card": {
+			"url": "/remote.php/carddav/addressbooks/%LOGIN/contacts"
+		},
+		"protocol": "https",
+		"host": "localhost",
+		"port": 443
+	}
+}
