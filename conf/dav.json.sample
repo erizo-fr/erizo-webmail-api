@@ -5,6 +5,9 @@
 		},
 		"protocol": "https",
 		"host": "localhost",
-		"port": 443
+		"port": 443,
+		"auth": {
+			"method": "BASIC"
+		}
 	}
 }
