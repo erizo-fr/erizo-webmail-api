@@ -1,0 +1,54 @@
+ecmaFeatures:
+  modules: true
+  jsx: true
+
+env:
+  es6: true
+  node: true
+
+rules:
+   # Single quotes
+  quotes: [2, "single"]
+
+  # semicolons are useless
+  semi: [2, "never"]
+
+  # indent
+  indent: [2, "tab"]
+
+  # Ensure empty line at end of files
+  eol-last: [2]
+
+  # consistent whitespace after keywords
+  space-after-keywords: [2, "always"]
+
+  # consistent whitespace before blocks
+  space-before-blocks: [2, "always"]
+
+  # consistent whitespace before function paren
+  space-before-function-paren: [2, "always"]
+
+  # consistent whitespace in brackets
+  space-in-brackets: [2, "never"]
+
+  # consistent whitespace in parens
+  space-in-parens: [2, "never"]
+
+  # consistent whitespace in single line comments
+  spaced-line-comment: [2, "always"]
+
+  # single empty lines only
+  no-multiple-empty-lines: [2, {"max": 1}]
+
+  # one brace per line
+  "brace-style": [2]
+
+  # trailing coma are cool for diff
+  comma-dangle: [2, "always-multiline"]
+
+  # enforce comma at eol (never before)
+  comma-style: [2, "last"]
+  no-underscore-dangle: 0
+
+  # Strict mode
+  strict: [2, "global"]

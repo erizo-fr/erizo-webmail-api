@@ -4,7 +4,9 @@
   "author": "Erizo",
   "scripts": {
     "start": "node --harmony app.js",
-    "test": "mocha test/*.coffee --harmony --reporter spec --compilers coffee:coffee-script/register"
+    "mocha": "mocha test/*.coffee --harmony --reporter spec --compilers coffee:coffee-script/register",
+    "lint": "eslint -f node_modules/eslint-friendly-formatter/index.js --ext .js,.jsx,.es .",
+    "test": "npm run lint && npm run mocha"
   },
   "engines": {
     "node": ">=0.11"
@@ -23,6 +25,8 @@
   "dependencies": {
     "async": "^0.9.0",
     "bytes": "1",
+    "eslint": "^0.21.2",
+    "eslint-friendly-formatter": "^1.0.8",
     "humanize-number": "~0.0.2",
     "imap": "^0.8.14",
     "koa": "^0.18.1",
