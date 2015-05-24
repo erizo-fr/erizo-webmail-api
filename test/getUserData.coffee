@@ -1,6 +1,6 @@
-require('mocha-cakes')
-should = require('should')
-app = require('./context/appContext')
+require("mocha-cakes")
+should = require("should")
+app = require("./context/appContext")
 request = app.request
 
 Feature "Get user data",
@@ -15,7 +15,7 @@ Feature "Get user data",
 			Given "An unauthenticated user", (done)->
 				app.logout(done)
 			When "I get my user data", (done)->
-				request.get('/account/data').end (err, res)->
+				request.get("/account/data").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -33,7 +33,7 @@ Feature "Get user data",
 			Given "An authenticated user", (done)->
 				app.login(done)
 			When "I get my user data", (done)->
-				request.get('/account/data').end (err, res)->
+				request.get("/account/data").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -41,8 +41,8 @@ Feature "Get user data",
 				should.not.exist error
 				should.exist result
 			And "the response should be a HTTP 200", ->
-                result.statusCode.should.be.exactly 200
+				result.statusCode.should.be.exactly 200
 			And "the response should contains the user data", ->
-                data = JSON.parse(result.text)
-                should.exist data.defaultIdentity
-                data.defaultIdentity.should.be.exactly 'testuser@testdomain'
+				data = JSON.parse(result.text)
+				should.exist data.defaultIdentity
+				data.defaultIdentity.should.be.exactly "testuser@testdomain"

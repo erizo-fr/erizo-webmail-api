@@ -1,12 +1,10 @@
-'use strict';
-var MODULE_NAME = 'messageContext';
+"use strict"
 
-var logger = require('log4js').getLogger(MODULE_NAME);
-var conf = require('nconf');
-var hoodiecrow = require("hoodiecrow");
-var simplesmtp = require("simplesmtp");
-
-
+var MODULE_NAME = "messageContext"
+var logger = require("log4js").getLogger(MODULE_NAME)
+var conf = require("nconf")
+var hoodiecrow = require("hoodiecrow")
+var simplesmtp = require("simplesmtp")
 /*
  * IMAP Server
  */
@@ -14,7 +12,7 @@ var imapServer = module.exports = hoodiecrow({
 	plugins: ["ID", "STARTTLS", "AUTH-PLAIN", "NAMESPACE", "IDLE", "ENABLE", "CONDSTORE", "XTOYBIRD", "LITERALPLUS", "UNSELECT", "SPECIAL-USE", "CREATE-SPECIAL-USE"],
 	id: {
 		name: "hoodiecrow",
-		version: "0.1"
+		version: "0.1",
 	},
 
 	storage: {
@@ -28,7 +26,7 @@ var imapServer = module.exports = hoodiecrow({
 						"Message-Id: <1>\r\n" +
 						"Date: Fri, 13 Sep 2013 15:01:00 +0300\r\n" +
 						"\r\n" +
-						"World 1!"
+						"World 1!",
 				}, {
 					uid: 13,
 					raw: "From: sender two <sender.2@example.com>\r\n" +
@@ -37,18 +35,18 @@ var imapServer = module.exports = hoodiecrow({
 						"Message-Id: <2>\r\n" +
 						"Date: Fri, 14 Sep 2013 08:12:15 +0300\r\n" +
 						"\r\n" +
-						"World 2!"
-				}
-			]
+						"World 2!",
+				},
+			],
 		},
 		"": {
 			"separator": "+",
 			"folders": {
 				"Drafts": {
-					"special-use": "\\Drafts"
+					"special-use": "\\Drafts",
 				},
 				"Sent": {
-					"special-use": "\\Sent"
+					"special-use": "\\Sent",
 				},
 				"Trash": {
 					"special-use": "\\Trash",
@@ -61,33 +59,33 @@ var imapServer = module.exports = hoodiecrow({
 								"Message-Id: <trash_1>\r\n" +
 								"Date: Fri, 13 Sep 2013 15:01:00 +0300\r\n" +
 								"\r\n" +
-								"I have been deleted :'("
+								"I have been deleted :'(",
 								},
-							]
+							],
 				},
 				"CustomFolderWithoutChild": {},
 				"CustomFolderWithChild": {
 					"folders": {
-						"CustomSubFolder": {}
-					}
+						"CustomSubFolder": {},
+					},
 				},
 				"features": {
 					"folders": {
 						"createBox": {
 							"folders": {
-								"thisBoxExists": {}
-							}
+								"thisBoxExists": {},
+							},
 						},
 						"deleteBox": {
 							"folders": {
-								"thisBoxExists": {}
-							}
+								"thisBoxExists": {},
+							},
 						},
 						"patchBox": {
 							"folders": {
 								"scenarioInvalidParam": {},
 								"scenarioPathChange": {},
-							}
+							},
 						},
 						"deleteMessage": {
 							messages: [
@@ -99,7 +97,7 @@ var imapServer = module.exports = hoodiecrow({
 										"Message-Id: <deleteMessage_1>\r\n" +
 										"Date: Fri, 13 Sep 2013 15:01:00 +0300\r\n" +
 										"\r\n" +
-										"I will survive !"
+										"I will survive !",
 								}, {
 									uid: 2,
 									raw: "From: sender two <sender.2@example.com>\r\n" +
@@ -108,7 +106,7 @@ var imapServer = module.exports = hoodiecrow({
 										"Message-Id: <deleteMessage_2>\r\n" +
 										"Date: Fri, 14 Sep 2013 08:12:15 +0300\r\n" +
 										"\r\n" +
-										"Oh no !"
+										"Oh no !",
 								}, {
 									uid: 3,
 									raw: "From: sender two <sender.2@example.com>\r\n" +
@@ -117,25 +115,21 @@ var imapServer = module.exports = hoodiecrow({
 										"Message-Id: <deleteMessage_3>\r\n" +
 										"Date: Fri, 14 Sep 2013 08:12:15 +0300\r\n" +
 										"\r\n" +
-										"Trashed !"
-								}
-							]
+										"Trashed !",
+								},
+							],
 						},
-					}
-				}
-			}
-		}
+					},
+				},
+			},
+		},
 	},
-	debug: false
-});
-
-const imapPort = conf.get('imap:port') || 1143;
+	debug: false,
+})
+const imapPort = conf.get("imap:port") || 1143
 imapServer.listen(imapPort, function () {
-	logger.info('IMAP server is now listening on ' + imapPort);
-});
-
-
-
+	logger.info("IMAP server is now listening on " + imapPort)
+})
 /*
  * SMTP Server
  */
@@ -145,36 +139,31 @@ var smtpServer = simplesmtp.createServer({
 	requireAuthentication: false,
 	disableDNSValidation: true,
 
-});
-
-smtpServer.on('startData', function (connection) {
-	logger.debug('Incomming SMTP Message (from:', connection.from + 'to:', connection.to + ')');
-	connection.messageData = [];
-	connection.messageDataLength = 0;
-});
-
-smtpServer.on('data', function (connection, chunk) {
+})
+smtpServer.on("startData", function (connection) {
+	logger.debug("Incomming SMTP Message (from:", connection.from + "to:", connection.to + ")")
+	connection.messageData = []
+	connection.messageDataLength = 0
+})
+smtpServer.on("data", function (connection, chunk) {
 	if (!chunk || !chunk.length) {
-		return;
+		return
 	}
-	logger.debug('New message data');
-	connection.messageData.push(chunk);
-	connection.messageDataLength += chunk.length;
-});
-
-smtpServer.on('dataReady', function (connection, callback) {
-	var message = Buffer.concat(connection.messageData, connection.messageDataLength);
-	imapServer.appendMessage('INBOX', [], false, message.toString('binary'));
-	logger.debug('New SMTP message delivered ' + message);
-
-	callback(null, 'ABC1');
-});
-
-const smtpPort = conf.get('smtp:port') || 1125;
+	logger.debug("New message data")
+	connection.messageData.push(chunk)
+	connection.messageDataLength += chunk.length
+})
+smtpServer.on("dataReady", function (connection, callback) {
+	var message = Buffer.concat(connection.messageData, connection.messageDataLength)
+	imapServer.appendMessage("INBOX", [], false, message.toString("binary"))
+	logger.debug("New SMTP message delivered " + message)
+	callback(null, "ABC1")
+})
+const smtpPort = conf.get("smtp:port") || 1125
 smtpServer.listen(smtpPort, function (err) {
 	if (err) {
-		logger.error('SMTP server failed to listen: ' + err);
+		logger.error("SMTP server failed to listen: " + err)
 	} else {
-		logger.info('SMTP server is now listening on ' + smtpPort);
+		logger.info("SMTP server is now listening on " + smtpPort)
 	}
-});
+})

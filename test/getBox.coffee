@@ -1,6 +1,6 @@
-require('mocha-cakes')
-should = require('should')
-app = require('./context/appContext')
+require("mocha-cakes")
+should = require("should")
+app = require("./context/appContext")
 request = app.request
 
 Feature "Get box",
@@ -15,10 +15,10 @@ Feature "Get box",
 			Given "An unauthenticated user", (done)->
 				app.logout(done)
 			When "I send a box request", (done)->
-				request.get('/boxes/INBOX').end (err, res)->
-					error = err;
-					result = res;
-					done();
+				request.get("/boxes/INBOX").end (err, res)->
+					error = err
+					result = res
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -30,39 +30,39 @@ Feature "Get box",
 			error = null
 			box = null
 			Given "An valid box", ->
-				box = 'CustomFolderWithChild'
+				box = "CustomFolderWithChild"
 			And "An authenticated user", (done)->
 				app.login(done)
 			When "I send a box request", (done)->
-				request.get('/boxes/' + box).end (err, res)->
+				request.get("/boxes/" + box).end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
 			And "the response should be a HTTP 200", ->
 				result.statusCode.should.be.exactly 200
 			And "the response should contains the box data", ->
-				body = JSON.parse(result.text);
+				body = JSON.parse(result.text)
 				should.exist body
 				should.exist body.name
-				body.name.should.be.type('string')
-				body.name.should.be.exactly('CustomFolderWithChild')
+				body.name.should.be.type("string")
+				body.name.should.be.exactly("CustomFolderWithChild")
 				
 		Scenario "Get an non-existing box", ->
 			result = null
 			error = null
 			box = null
 			Given "An valid box", ->
-				box = 'CustomFolderWithChild'
+				box = "CustomFolderWithChild"
 			And "An authenticated user", (done)->
 				app.login(done)
 			When "I send a box request", (done)->
-				request.get('/boxes/thisIsAnNonExistantFolder').end (err, res)->
+				request.get("/boxes/thisIsAnNonExistantFolder").end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result
@@ -74,14 +74,14 @@ Feature "Get box",
 			error = null
 			box = null
 			Given "An invalid box", ->
-				box = 'anInvalidFolder'
+				box = "anInvalidFolder"
 			And "An authenticated user", (done)->
 				app.login(done)
 			When "I send a box request", (done)->
-				request.get('/boxes/' + box).end (err, res)->
+				request.get("/boxes/" + box).end (err, res)->
 					error = err
 					result = res
-					done();
+					done()
 			Then "it should get a result", ->
 				should.not.exist error
 				should.exist result

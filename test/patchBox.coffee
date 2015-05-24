@@ -1,6 +1,6 @@
-require('mocha-cakes')
-should = require('should')
-app = require('./context/appContext')
+require("mocha-cakes")
+should = require("should")
+app = require("./context/appContext")
 request = app.request
 
 Feature "Patch box",
@@ -14,7 +14,7 @@ Feature "Patch box",
 			Given "An unauthenticated user", (done)->
 				app.logout(done)
 			When "I send a patch box request", (done)->
-				request.patch('/boxes/features+patchBox').end (err, res)->
+				request.patch("/boxes/features+patchBox").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -27,18 +27,18 @@ Feature "Patch box",
 		Scenario "Patch a non existing box", ->
 			result = null
 			error = null
-			box = null;
+			box = null
 			Given "A valid box name", ->
-				box = 'features+patchBox+nonExistingBox'
+				box = "features+patchBox+nonExistingBox"
 			And "An authenticated user", (done)->
 				app.login(done)
 			And "An non existing box", (done)->
-				request.get('/boxes/' + box).end (err, res)->
+				request.get("/boxes/" + box).end (err, res)->
 					res.statusCode.should.be.exactly 404
 					done()
 			When "I send a patch box request", (done)->
 				body = {}
-				request.patch('/boxes/' + box)
+				request.patch("/boxes/" + box)
 				.send body
 				.end (err, res)->
 					error = err
@@ -53,18 +53,18 @@ Feature "Patch box",
 		Scenario "Box patch with invalid param", ->
 			result = null
 			error = null
-			box = null;
+			box = null
 			Given "A valid box name", ->
-				box = 'features+patchBox+scenarioInvalidParam'
+				box = "features+patchBox+scenarioInvalidParam"
 			And "An authenticated user", (done)->
 				app.login(done)
 			And "An existing box", (done)->
-				request.get('/boxes/' + box).end (err, res)->
+				request.get("/boxes/" + box).end (err, res)->
 					res.statusCode.should.be.exactly 200
 					done()
 			When "I send a patch box request", (done)->
 				body = {}
-				request.patch('/boxes/' + box)
+				request.patch("/boxes/" + box)
 				.send body
 				.end (err, res)->
 					error = err
@@ -79,22 +79,22 @@ Feature "Patch box",
 		Scenario "Path changed", ->
 			result = null
 			error = null
-			box = null;
+			box = null
 			newPath = null
 			Given "An valid box name", ->
-				box = 'features+patchBox+scenarioPathChange'
-				newPath = 'features+patchBox+scenarioPathChangeRenamed'
+				box = "features+patchBox+scenarioPathChange"
+				newPath = "features+patchBox+scenarioPathChangeRenamed"
 			And "An authenticated user", (done)->
 				app.login(done)
 			And "An existing box", (done)->
-				request.get('/boxes/' + box).end (err, res)->
+				request.get("/boxes/" + box).end (err, res)->
 					res.statusCode.should.be.exactly 200
 					done()
 			When "I send a patch box request", (done)->
 				body = {
 					path: newPath
 				}
-				request.patch('/boxes/' + box)
+				request.patch("/boxes/" + box)
 				.send body
 				.end (err, res)->
 					error = err
@@ -106,10 +106,10 @@ Feature "Patch box",
 			And "the response should be a HTTP 200", ->
 				result.statusCode.should.be.exactly 200
 			And "the old box name should not exist anymore", (done)->
-				request.get('/boxes/' + box).end (err, res)->
+				request.get("/boxes/" + box).end (err, res)->
 					res.statusCode.should.be.exactly 404
 					done()
 			And "the new box name should exist", (done)->
-				request.get('/boxes/' + newPath).end (err, res)->
+				request.get("/boxes/" + newPath).end (err, res)->
 					res.statusCode.should.be.exactly 200
 					done()

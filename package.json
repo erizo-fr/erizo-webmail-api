@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "Erizo",
   "scripts": {
-    "start": "node --harmony app.js",
+    "start": "node --harmony --use_strict app.js",
     "mocha": "mocha test/*.coffee --harmony --reporter spec --compilers coffee:coffee-script/register",
     "lint": "eslint -f node_modules/eslint-friendly-formatter/index.js --ext .js,.jsx,.es .",
     "test": "npm run lint && npm run mocha"
@@ -34,6 +34,7 @@
     "koa-bodyparser": "^1.4.0",
     "koa-compress": "^1.0.8",
     "koa-generic-session": "^1.7.0",
+    "koa-log4js": "0.0.1",
     "koa-logger": "^1.2.2",
     "koa-router": "^3.8.0",
     "koa-static": "^1.4.9",

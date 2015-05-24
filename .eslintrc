@@ -8,7 +8,7 @@ env:
 
 rules:
    # Single quotes
-  quotes: [2, "single"]
+  quotes: [2, "double"]
 
   # semicolons are useless
   semi: [2, "never"]
@@ -40,15 +40,24 @@ rules:
   # single empty lines only
   no-multiple-empty-lines: [2, {"max": 1}]
 
-  # one brace per line
+  # One true brace style
   "brace-style": [2]
 
   # trailing coma are cool for diff
   comma-dangle: [2, "always-multiline"]
 
   # enforce comma at eol (never before)
-  comma-style: [2, "last"]
-  no-underscore-dangle: 0
+  "comma-style": [2, "last"]
+  "no-underscore-dangle": 0
 
-  # Strict mode
-  strict: [2, "global"]
+  # Disable Strict mode (since it causing issues with mocha)
+  "strict": [1]
+
+  # consistent eol
+  linebreak-style: [2]
+
+  # Camel case
+  "camelcase": [2, {"properties": "always"}]
+
+  # Disabl
+  "no-process-exit": [0]

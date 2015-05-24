@@ -1,13 +1,13 @@
-require('mocha-cakes')
-should = require('should')
-app = require('./context/appContext')
+require("mocha-cakes")
+should = require("should")
+app = require("./context/appContext")
 request = app.request
 
 sendLogin = (username, password, callback) ->
 	body = {}
 	if username != null then body.username = username
 	if password != null then body.password = password
-	request.post('/login')
+	request.post("/login")
 	.send body
 	.end callback
 
@@ -23,8 +23,8 @@ Feature "Login",
 			password = null
 				
 			Given "A valid user", ->
-				username = 'testuser'
-				password = 'testpass'
+				username = "testuser"
+				password = "testpass"
 			When "I send a login request", (done)->
 				sendLogin username, password, (err, res) ->
 					error = err
@@ -43,8 +43,8 @@ Feature "Login",
 			password = null
 				
 			Given "An invalid user", ->
-				username = 'invalidUser'
-				password = 'invalidPassword'
+				username = "invalidUser"
+				password = "invalidPassword"
 			When "I send a login request", (done)->
 				sendLogin username, password, (err, res) ->
 					error = err
@@ -63,7 +63,7 @@ Feature "Login",
 			password = null
 				
 			Given "A user without login", ->
-				password = 'password'
+				password = "password"
 			When "I send a login request", (done)->
 				sendLogin username, password, (err, res) ->
 					error = err
@@ -82,7 +82,7 @@ Feature "Login",
 			password = null
 				
 			Given "A user without password", ->
-				username = 'username'
+				username = "username"
 			When "I send a login request", (done)->
 				sendLogin username, password, (err, res) ->
 					error = err

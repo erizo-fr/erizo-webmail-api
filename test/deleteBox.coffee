@@ -1,6 +1,6 @@
-require('mocha-cakes')
-should = require('should')
-app = require('./context/appContext')
+require("mocha-cakes")
+should = require("should")
+app = require("./context/appContext")
 request = app.request
 
 Feature "Delete box",
@@ -14,7 +14,7 @@ Feature "Delete box",
 			Given "An unauthenticated user", (done)->
 				app.logout(done)
 			When "I send a delete box request", (done)->
-				request.delete('/boxes/features+deleteBox').end (err, res)->
+				request.delete("/boxes/features+deleteBox").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -27,17 +27,17 @@ Feature "Delete box",
 		Scenario "Delete an existing box", ->
 			result = null
 			error = null
-			box = null;
+			box = null
 			Given "An valid box name", ->
-				box = 'features+deleteBox+thisBoxExists'
+				box = "features+deleteBox+thisBoxExists"
 			And "An authenticated user", (done)->
 				app.login(done)
 			And "An existant box", (done)->
-				request.get('/boxes/' + box).end (err, res)->
+				request.get("/boxes/" + box).end (err, res)->
 					res.statusCode.should.be.exactly 200
 					done()
 			When "I send a delete box request", (done)->
-				request.delete('/boxes/' + box)
+				request.delete("/boxes/" + box)
 				.end (err, res)->
 					error = err
 					result = res
@@ -48,24 +48,24 @@ Feature "Delete box",
 			And "the response should be a HTTP 200", ->
 				result.statusCode.should.be.exactly 200
 			And "the box should not exist anymore", (done)->
-				request.get('/boxes/' + box).end (err, res)->
+				request.get("/boxes/" + box).end (err, res)->
 					res.statusCode.should.be.exactly 404
 					done()
 					
 		Scenario "Delete a non existing box", ->
 			result = null
 			error = null
-			box = null;
+			box = null
 			Given "An valid box name", ->
-				box = 'features+deleteBox+thisBoxDoesNotExist'
+				box = "features+deleteBox+thisBoxDoesNotExist"
 			And "An authenticated user", (done)->
 				app.login(done)
 			And "A non existant box", (done)->
-				request.get('/boxes/' + box).end (err, res)->
+				request.get("/boxes/" + box).end (err, res)->
 					res.statusCode.should.be.exactly 404
 					done()
 			When "I send a delete box request", (done)->
-				request.delete('/boxes/' + box)
+				request.delete("/boxes/" + box)
 				.end (err, res)->
 					error = err
 					result = res

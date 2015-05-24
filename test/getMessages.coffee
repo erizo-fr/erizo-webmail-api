@@ -1,6 +1,6 @@
-require('mocha-cakes')
-should = require('should')
-app = require('./context/appContext')
+require("mocha-cakes")
+should = require("should")
+app = require("./context/appContext")
 request = app.request
 	
 Feature "Get messages",
@@ -12,9 +12,9 @@ Feature "Get messages",
 			result = null
 			error = null
 			Given "An unauthenticated user", (done)->
-				app.logout(done);
+				app.logout(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?ids=1').end (err, res)->
+				request.get("/boxes/INBOX/messages?ids=1").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -28,9 +28,9 @@ Feature "Get messages",
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?ids=13').end (err, res)->
+				request.get("/boxes/INBOX/messages?ids=13").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -50,9 +50,9 @@ Feature "Get messages",
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?ids=12&ids=13').end (err, res)->
+				request.get("/boxes/INBOX/messages?ids=12&ids=13").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -73,9 +73,9 @@ Feature "Get messages",
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?ids=99999999').end (err, res)->
+				request.get("/boxes/INBOX/messages?ids=99999999").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -94,9 +94,9 @@ Feature "Get messages",
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages/13').end (err, res)->
+				request.get("/boxes/INBOX/messages/13").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -113,9 +113,9 @@ Feature "Get messages",
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages/999999').end (err, res)->
+				request.get("/boxes/INBOX/messages/999999").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -129,9 +129,9 @@ Feature "Get messages",
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?seqs=1').end (err, res)->
+				request.get("/boxes/INBOX/messages?seqs=1").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -145,15 +145,15 @@ Feature "Get messages",
 				should.exist body
 				body.should.be.instanceof Array
 				body.should.have.lengthOf 1
-				body[0].attrs.modseq.should.be.exactly '1'
+				body[0].attrs.modseq.should.be.exactly "1"
 				
 		Scenario "Get several messages by seqs", ->
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?seqs=1&seqs=2').end (err, res)->
+				request.get("/boxes/INBOX/messages?seqs=1&seqs=2").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -167,16 +167,16 @@ Feature "Get messages",
 				should.exist body
 				body.should.be.instanceof Array
 				body.should.have.lengthOf 2
-				body[0].attrs.modseq.should.be.exactly '1'
-				body[1].attrs.modseq.should.be.exactly '2'
+				body[0].attrs.modseq.should.be.exactly "1"
+				body[1].attrs.modseq.should.be.exactly "2"
 				
 		Scenario "Search a non existant message by seq", ->
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?seqs=99999999').end (err, res)->
+				request.get("/boxes/INBOX/messages?seqs=99999999").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -195,9 +195,9 @@ Feature "Get messages",
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?seqs=1&ids=1').end (err, res)->
+				request.get("/boxes/INBOX/messages?seqs=1&ids=1").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -208,15 +208,15 @@ Feature "Get messages",
 				result.statusCode.should.be.exactly 400
 			And "the response should contains an error message", ->
 				should.exist result.res.text
-				result.res.text.should.be.exactly 'Exactly one of ids or seqs param must be given'
+				result.res.text.should.be.exactly "Exactly one of ids or seqs param must be given"
 				
 		Scenario "Send a request without ids nor seqs", ->
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages').end (err, res)->
+				request.get("/boxes/INBOX/messages").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -227,15 +227,15 @@ Feature "Get messages",
 				result.statusCode.should.be.exactly 400
 			And "the response should contains an error message", ->
 				should.exist result.res.text
-				result.res.text.should.be.exactly 'Exactly one of ids or seqs param must be given'
+				result.res.text.should.be.exactly "Exactly one of ids or seqs param must be given"
 				
 		Scenario "Get a single message with structure", ->
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?seqs=1&fetchStruct=true').end (err, res)->
+				request.get("/boxes/INBOX/messages?seqs=1&fetchStruct=true").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -256,9 +256,9 @@ Feature "Get messages",
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?seqs=1&fetchStruct=false').end (err, res)->
+				request.get("/boxes/INBOX/messages?seqs=1&fetchStruct=false").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -278,9 +278,9 @@ Feature "Get messages",
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?seqs=1&fetchEnvelope=true').end (err, res)->
+				request.get("/boxes/INBOX/messages?seqs=1&fetchEnvelope=true").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -301,9 +301,9 @@ Feature "Get messages",
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?seqs=1&fetchEnvelope=false').end (err, res)->
+				request.get("/boxes/INBOX/messages?seqs=1&fetchEnvelope=false").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -324,9 +324,9 @@ Feature "Get messages",
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?seqs=1&fetchSize=true').end (err, res)->
+				request.get("/boxes/INBOX/messages?seqs=1&fetchSize=true").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -347,9 +347,9 @@ Feature "Get messages",
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?seqs=1&fetchSize=false').end (err, res)->
+				request.get("/boxes/INBOX/messages?seqs=1&fetchSize=false").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -369,9 +369,9 @@ Feature "Get messages",
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?ids=1:').end (err, res)->
+				request.get("/boxes/INBOX/messages?ids=1:").end (err, res)->
 					error = err
 					result = res
 					done()
@@ -385,9 +385,9 @@ Feature "Get messages",
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
-				app.login(done);
+				app.login(done)
 			When "I send a message request", (done)->
-				request.get('/boxes/INBOX/messages?seqs=1:').end (err, res)->
+				request.get("/boxes/INBOX/messages?seqs=1:").end (err, res)->
 					error = err
 					result = res
 					done()
