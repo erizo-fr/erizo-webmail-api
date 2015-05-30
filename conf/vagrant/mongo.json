@@ -1,0 +1,5 @@
+{
+    "mongo": {
+        "url": "mongodb://localhost/erizo-mail"
+    }
+}

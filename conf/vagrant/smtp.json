@@ -1,0 +1,11 @@
+{
+	"smtp": {
+		"name": "localhost",
+		"host": "localhost",
+		"port": 8025,
+		"secure": false,
+		"ignoreTLS": false,
+		"authMethod": "PLAIN",
+		"authRequired": false
+	}
+}

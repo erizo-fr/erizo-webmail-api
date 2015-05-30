@@ -1,0 +1,8 @@
+{
+	"imap": {
+		"host": "localhost",
+		"port": 8143,
+		"tls": false,
+		"autotls": "never"
+	}
+}
