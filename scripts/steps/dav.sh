@@ -36,7 +36,7 @@ cat > /usr/share/nginx/www/dav/Specific/config.php <<- EOM
 define("PROJECT_TIMEZONE", 'Europe/Paris');
 define("BAIKAL_CARD_ENABLED", TRUE);
 define("BAIKAL_CAL_ENABLED", TRUE);
-define("BAIKAL_DAV_AUTH_TYPE", 'Digest');
+define("BAIKAL_DAV_AUTH_TYPE", 'Basic');
 define("BAIKAL_ADMIN_ENABLED", TRUE);
 define("BAIKAL_ADMIN_AUTOLOCKENABLED", FALSE);
 define("BAIKAL_ADMIN_PASSWORDHASH", 'ccd25b06c60141fbff5689806eb04107');
