@@ -88,7 +88,7 @@ var imapServer = module.exports = hoodiecrow({
 							},
 						},
 						"deleteMessage": {
-							messages: [
+							"messages": [
 								{
 									uid: 1,
 									raw: "From: sender one <sender.1@example.com>\r\n" +
@@ -118,6 +118,38 @@ var imapServer = module.exports = hoodiecrow({
 										"Trashed !",
 								},
 							],
+						},
+						"moveMessage": {
+							"folders": {
+								"src": {
+									"messages": [
+										{
+											uid: 1,
+											raw: "From: sender one <sender.1@example.com>\r\n" +
+												"To: Me <receiver@example.com>\r\n" +
+												"Subject: Move a message to another box\r\n" +
+												"Message-Id: <moveMessage_src_1>\r\n" +
+												"Date: Fri, 13 Sep 2013 15:01:00 +0300\r\n" +
+												"\r\n" +
+												"Don't take me :(",
+										},
+										{
+											uid: 2,
+											raw: "From: sender one <sender.1@example.com>\r\n" +
+												"To: Me <receiver@example.com>\r\n" +
+												"Subject: This message will not be moved\r\n" +
+												"Message-Id: <moveMessage_src_2>\r\n" +
+												"Date: Fri, 13 Sep 2013 15:01:00 +0300\r\n" +
+												"\r\n" +
+												"Won't move !",
+										},
+									],
+								},
+								"dst": {
+									"messages": [
+									],
+								},
+							},
 						},
 					},
 				},
