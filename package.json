@@ -4,7 +4,7 @@
   "author": "Erizo",
   "scripts": {
     "start": "node --harmony app.js",
-    "mocha": "mocha test/moveM*.coffee --harmony --reporter spec --compilers coffee:coffee-script/register",
+    "mocha": "mocha test/*.coffee --harmony --reporter spec --compilers coffee:coffee-script/register",
     "lint": "eslint -f node_modules/eslint-friendly-formatter/index.js --ext .js,.jsx,.es .",
     "test": "npm run lint && npm run mocha"
   },
