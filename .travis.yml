@@ -1,4 +1,10 @@
 language: node_js
+
 node_js:
   - "0.11"
+
 services: mongodb
+
+before_script:
+  # Wait for mongodb server
+  - sleep 15
