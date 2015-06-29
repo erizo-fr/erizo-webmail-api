@@ -1,0 +1,41 @@
+{
+	"app": {
+		"port": 8081,
+		"user": {
+			"defaultIdentity": "%LOGIN@mydomain.org"
+		}
+	},
+
+	"dav": {
+		"card": {
+			"url": "/remote.php/carddav/addressbooks/%LOGIN/contacts"
+		},
+		"protocol": "https",
+		"host": "localhost",
+		"port": 443,
+		"auth": {
+			"method": "BASIC"
+		}
+	},
+
+	"imap": {
+		"host": "localhost",
+		"port": 143,
+		"tls": false,
+		"autotls": "never"
+	},
+
+	"mongo": {
+		"url": "mongodb://localhost/erizo-mail"
+	},
+
+	"smtp": {
+		"name": "localhost",
+		"host": "localhost",
+		"port": 25,
+		"secure": false,
+		"ignoreTLS": true,
+		"authMethod": "PLAIN",
+		"authRequired": true
+	}
+}
