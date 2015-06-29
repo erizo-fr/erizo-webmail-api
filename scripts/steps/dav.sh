@@ -1,5 +1,8 @@
 #!/bin/bash
 
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+RESOURCE_DIR="$DIR/.."
+
 echo ""
 echo "--------------------------------------------------"
 echo "DAV service ..."
@@ -11,7 +14,7 @@ rm -rf /usr/share/nginx/www/dav
 echo "Installing dependencies ..."
 apt-get install php5-sqlite
 
-echo "Downloading Sabre DAV server ..."
+echo "Downloading DAV server ..."
 mkdir /usr/share/nginx/www/dav
 curl -L -s http://baikal-server.com/get/baikal-flat-0.2.7.zip > /usr/share/nginx/www/dav/dav.zip
 
@@ -28,7 +31,7 @@ echo "Configuring ..."
 # Database
 rm -rf /usr/share/nginx/www/dav/Specific/
 mkdir -p /usr/share/nginx/www/dav/Specific/db
-cp /vagrant/scripts/resources/dav/db.sqlite /usr/share/nginx/www/dav/Specific/db/
+cp $RESOURCE_DIR/resources/dav/db.sqlite /usr/share/nginx/www/dav/Specific/db/
 
 # config.php
 cat > /usr/share/nginx/www/dav/Specific/config.php <<- EOM

@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
 
 	# Every Vagrant development environment requires a box. You can search for
 	# boxes at https://atlas.hashicorp.com/search.
-	config.vm.box = "puphpet/debian75-x64"
+	config.vm.box = "hashicorp/precise32"
 
 	# SSH conf
 	config.ssh.username = "vagrant"
@@ -75,7 +75,7 @@ Vagrant.configure(2) do |config|
 
 
 	# Provisioning
-	config.vm.provision "shell", path: "scripts/provision.sh"
+	config.vm.provision "shell", inline: "/vagrant/scripts/provision.sh"
 end
 
 

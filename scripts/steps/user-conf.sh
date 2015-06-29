@@ -4,14 +4,7 @@
 apt-get update > /dev/null
 
 # Configure .bashrc
-cat >> /home/vagrant/.bashrc <<- EOM
-{
-alias ls='ls --color=always'
-alias dir='dir --color=always'
-alias ll='ls -alh'
-}
-EOM
-cat >> /root/.bashrc <<- EOM
+cat >> ~/.bashrc <<- EOM
 {
 alias ls='ls --color=always'
 alias dir='dir --color=always'

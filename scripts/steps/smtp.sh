@@ -5,6 +5,10 @@ echo "--------------------------------------------------"
 echo "SMTP service ..."
 echo "--------------------------------------------------"
 
+echo "Installing ..."
+apt-get install -y exim4
+
+
 echo "Configuring ..."
 
 # Use split config mode

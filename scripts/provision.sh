@@ -1,19 +1,21 @@
 #!/bin/bash
 
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 # Install user conf
-/vagrant/scripts/steps/user-conf.sh
+$DIR/steps/user-conf.sh
 
 # Install build tools
-/vagrant/scripts/steps/build-tools.sh
+$DIR/steps/build-tools.sh
 
 # Installing IMAP server
-/vagrant/scripts/steps/imap.sh
+$DIR/steps/imap.sh
 
-# Installing IMAP server
-/vagrant/scripts/steps/smtp.sh
+# Installing SMTP server
+$DIR/steps/smtp.sh
 
 # Installing HTTP server
-/vagrant/scripts/steps/http.sh
+$DIR/steps/http.sh
 
 # Installing Dav server
-/vagrant/scripts/steps/dav.sh
+$DIR/steps/dav.sh
