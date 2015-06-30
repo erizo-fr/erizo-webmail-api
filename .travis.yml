@@ -5,4 +5,4 @@ node_js:
 
 before_script:
   - chmod -R a+x ./scripts
-  - ./scripts/provision.sh
+  - sudo ./scripts/provision.sh
