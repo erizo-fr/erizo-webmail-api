@@ -3,6 +3,14 @@ language: node_js
 node_js:
   - "0.11"
 
+addons:
+  code_climate:
+    repo_token: 1826fa40d472949cb5ffa45d7520ed9fa891f195bd52b7ee785bda82545d62d8
+
 before_script:
   - chmod -R a+x ./scripts
   - sudo ./scripts/provision.sh
+
+after_script:
+  - codeclimate < coverage/lcov.info
+

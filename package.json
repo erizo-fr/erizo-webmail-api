@@ -4,9 +4,9 @@
   "author": "Erizo",
   "scripts": {
     "start": "node --harmony app.js",
-    "mocha": "mocha test/*.coffee --harmony --reporter spec --compilers coffee:coffee-script/register",
+    "test-features": "node --harmony ./node_modules/istanbul-harmony/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --compilers coffee:coffee-script/register --U exports test/*.coffee",
     "lint": "eslint -f node_modules/eslint-friendly-formatter/index.js --ext .js,.jsx,.es .",
-    "test": "npm run lint && npm run mocha"
+    "test": "npm run lint && npm run test-features"
   },
   "engines": {
     "node": ">=0.11"
@@ -52,6 +52,7 @@
   "devDependencies": {
     "coffee-script": "^1.9.1",
     "hoodiecrow": "^1.1.21",
+    "istanbul-harmony": "^0.3.16",
     "mocha": "1.21.5",
     "mocha-cakes": "^0.9.0",
     "should": "^5.1.0",
