@@ -50,6 +50,7 @@
     "xml2js": "^0.4.6"
   },
   "devDependencies": {
+    "codeclimate-test-reporter": "0.0.4",
     "coffee-script": "^1.9.1",
     "hoodiecrow": "^1.1.21",
     "istanbul-harmony": "^0.3.16",
