@@ -32,10 +32,103 @@ var imapServer = module.exports = hoodiecrow({
 					raw: "From: sender two <sender.2@example.com>\r\n" +
 						"To: Me <receiver@example.com>\r\n" +
 						"Subject: hello from 2\r\n" +
+						"Content-type: text/plain\n" +
 						"Message-Id: <2>\r\n" +
 						"Date: Fri, 14 Sep 2013 08:12:15 +0300\r\n" +
 						"\r\n" +
 						"World 2!",
+				}, {
+					uid: 14,
+					raw: "Content-Type: multipart/alternative;\n" +
+						" boundary=\"----sinikael-?=_1-14348981329060.8954494663048536\"\n" +
+						"From: bart@localhost\n" +
+						"To: bart@localhost, bart@localhost\n" +
+						"Subject: 14 - Multipart\n" +
+						"Date: Sun, 21 Jun 2015 14:48:52 +0000\n" +
+						"Message-Id: <14>\n" +
+						"MIME-Version: 1.0\n" +
+						"\n" +
+						"------sinikael-?=_1-14348981329060.8954494663048536\n" +
+						"Content-Type: text/plain; charset=utf-8\n" +
+						"Content-Transfer-Encoding: quoted-printable\n" +
+						"\n" +
+						"Coucou\n" +
+						"------sinikael-?=_1-14348981329060.8954494663048536\n" +
+						"Content-Type: text/html; format=flowed\n" +
+						"Content-Transfer-Encoding: 7bit\n" +
+						"\n" +
+						"<div>Coucou</div>\n" +
+						"------sinikael-?=_1-14348981329060.8954494663048536--\n" +
+						"\n",
+				}, {
+					uid: 15,
+					raw: "Content-Type: multipart/mixed;\n" +
+					" boundary=\"----lola-?=_1.1\"\n" +
+					"From: bart@localhost\n" +
+					"To: bart@localhost\n" +
+					"Subject: Message 15\n" +
+					"Message-Id: <15-dsds>\n" +
+					"MIME-Version: 1.0\n" +
+					"\n" +
+					"------lola-?=_1.1\n" +
+					"Content-Type: multipart/alternative;\n" +
+					" boundary=\"----lola-?=_2-14349004014090.9237000774592161\"\n" +
+					"\n" +
+					"------lola-?=_2-14349004014090.9237000774592161\n" +
+					"Content-Type: text/plain\n" +
+					"Content-Transfer-Encoding: 7bit\n" +
+					"\n" +
+					"Coucou\n" +
+					"------lola-?=_2-14349004014090.9237000774592161\n" +
+					"Content-Type: text/html\n" +
+					"Content-Transfer-Encoding: 7bit\n" +
+					"\n" +
+					"<div>Coucou</div>\n" +
+					"------lola-?=_2-14349004014090.9237000774592161--\n" +
+					"\n" +
+					"------lola-?=_1.1\n" +
+					"Content-Type: text/html\n" +
+					"Content-Transfer-Encoding: 7bit\n" +
+					"\n" +
+					"TGFzdCBwYXJ0\n" +
+					"\n" +
+					"------lola-?=_1.1--\n" +
+					"\n",
+				}, {
+					uid: 16,
+					raw: "Content-Type: multipart/mixed;\n" +
+					" boundary=\"----lola-?=_1.1\"\n" +
+					"From: bart@localhost\n" +
+					"To: bart@localhost\n" +
+					"Subject: Message 15\n" +
+					"Message-Id: <16-dsds>\n" +
+					"MIME-Version: 1.0\n" +
+					"\n" +
+					"------lola-?=_1.1\n" +
+					"Content-Type: multipart/alternative;\n" +
+					" boundary=\"----lola-?=_2-14349004014090.9237000774592161\"\n" +
+					"\n" +
+					"------lola-?=_2-14349004014090.9237000774592161\n" +
+					"Content-Type: text/plain\n" +
+					"Content-Transfer-Encoding: 7bit\n" +
+					"\n" +
+					"Coucou\n" +
+					"------lola-?=_2-14349004014090.9237000774592161\n" +
+					"Content-Type: text/html\n" +
+					"Content-Transfer-Encoding: 7bit\n" +
+					"\n" +
+					"<div>Coucou</div>\n" +
+					"------lola-?=_2-14349004014090.9237000774592161--\n" +
+					"\n" +
+					"------lola-?=_1.1\n" +
+					"Content-Type: text/plain\n" +
+					"Content-Disposition: attachment; filename=\"myAttachment.txt\"\n" +
+					"Content-Transfer-Encoding: 7bit\n" +
+					"\n" +
+					"Vm9pY2kgbGUgY29udGVudSBkZSBsYSBQSg==\n" +
+					"\n" +
+					"------lola-?=_1.1--\n" +
+					"\n",
 				},
 			],
 		},
