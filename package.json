@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node --harmony app.js",
     "test-features": "node --harmony ./node_modules/istanbul-harmony/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --compilers coffee:coffee-script/register --U exports test/*.coffee",
-    "lint": "eslint -f node_modules/eslint-friendly-formatter/index.js --ext .js,.jsx,.es .",
+    "lint": "eslint -f node_modules/eslint-friendly-formatter/index.js --ext .js,.jsx,.es lib app.js",
     "test": "npm run lint && npm run test-features"
   },
   "engines": {
