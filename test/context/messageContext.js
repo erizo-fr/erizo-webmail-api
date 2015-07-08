@@ -129,6 +129,15 @@ var imapServer = module.exports = hoodiecrow({
 					"\n" +
 					"------lola-?=_1.1--\n" +
 					"\n",
+				}, {
+					uid: 17,
+					raw: "From: sender one <sender.1@example.com>\r\n" +
+						"To: Me <receiver@example.com>\r\n" +
+						"Subject: hello from 1\r\n" +
+						"Message-Id: <17>\r\n" +
+						"Date: Fri, 13 Sep 2013 15:01:00 +0300\r\n" +
+						"\r\n" +
+						"éà@#%$ =})",
 				},
 			],
 		},

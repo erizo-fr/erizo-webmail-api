@@ -56,7 +56,7 @@ Feature "Get message part content",
 			And "the response should be a HTTP 200", ->
 				result.statusCode.should.be.exactly 200
 			And "the response should contains the part content", ->
-				result.text.should.be.exactly("Vm05cFkya2diR1VnWTI5dWRHVnVkU0JrWlNCc1lTQlFTZz09DQo=")
+				result.text.should.be.exactly("TODO")
 			And "the response have the right content type", ->
 				result.header["content-type"].should.be.startWith("text/plain")
 			And "the response have the right content disposition", ->

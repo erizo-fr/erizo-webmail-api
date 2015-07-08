@@ -102,3 +102,23 @@ Feature "Get message part",
 				body.content.should.be.exactly("PGRpdj5Db3Vjb3U8L2Rpdj4=")
 				body.attributes.encoding.should.be.exactly("7BIT")
 				body.attributes.partID.should.be.exactly("1.2")
+
+		Scenario "Get an existing part with non ascii characters", ->
+			result = null
+			error = null
+			Given "An authenticated user", (done)->
+				app.login(done)
+			When "I send a message request", (done)->
+				request.get("/boxes/INBOX/messages/17/parts/1").end (err, res)->
+					error = err
+					result = res
+					done()
+			Then "it should get a result", ->
+				should.not.exist error
+				should.exist result
+			And "the response should be a HTTP 200", ->
+				result.statusCode.should.be.exactly 200
+			And "the response should contains the part data", ->
+				body = JSON.parse(result.text)
+				body.content.should.be.exactly("6eBAIyUkID19KQ==")
+				body.attributes.partID.should.be.exactly("1")
