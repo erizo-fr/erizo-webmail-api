@@ -135,9 +135,23 @@ var imapServer = module.exports = hoodiecrow({
 						"To: Me <receiver@example.com>\r\n" +
 						"Subject: hello from 1\r\n" +
 						"Message-Id: <17>\r\n" +
-						"Date: Fri, 13 Sep 2013 15:01:00 +0300\r\n" +
-						"\r\n" +
-						"éà@#%$ =})",
+						"Content-Type: multipart/alternative;\n" +
+						" boundary=\"----sinikael-?=_1-14365652326130.5919539076276124\"\n" +
+						"Date: Fri, 10 Jul 2015 21:53:52 +0000\n" +
+						"Message-Id: <17>\n" +
+						"MIME-Version: 1.0\n" +
+						"\n" +
+						"------sinikael-?=_1-14365652326130.5919539076276124\n" +
+						"Content-Type: text/plain; charset=utf-8\n" +
+						"Content-Transfer-Encoding: quoted-printable\n" +
+						"\n" +
+						"Accents: =C3=A0=C3=A8=C3=AB=C3=A4=C3=84=C3=B9%$!:\"'}{\n" +
+						"------sinikael-?=_1-14365652326130.5919539076276124\n" +
+						"Content-Type: text/html; charset=utf-8\n" +
+						"Content-Transfer-Encoding: quoted-printable\n" +
+						"\n" +
+						"<div>Accents: =C3=A0=C3=A8=C3=AB=C3=A4=C3=84=C3=B9%$!:\"'}{</div>\n" +
+						"------sinikael-?=_1-14365652326130.5919539076276124--\n",
 				},
 			],
 		},

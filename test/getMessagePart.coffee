@@ -57,7 +57,7 @@ Feature "Get message part",
 				result.statusCode.should.be.exactly 200
 			And "the response should contains the part data", ->
 				body = JSON.parse(result.text)
-				body.content.should.be.exactly("V29ybGQgMiE=")
+				body.content.should.be.exactly("World 2!")
 				body.attributes.encoding.should.be.exactly("7BIT")
 				body.attributes.partID.should.be.exactly("1")
 
@@ -78,7 +78,7 @@ Feature "Get message part",
 				result.statusCode.should.be.exactly 200
 			And "the response should contains the part data", ->
 				body = JSON.parse(result.text)
-				body.content.should.be.exactly("PGRpdj5Db3Vjb3U8L2Rpdj4=")
+				body.content.should.be.exactly("<div>Coucou</div>")
 				body.attributes.encoding.should.be.exactly("7BIT")
 				body.attributes.partID.should.be.exactly("2")
 
@@ -99,7 +99,7 @@ Feature "Get message part",
 				result.statusCode.should.be.exactly 200
 			And "the response should contains the part data", ->
 				body = JSON.parse(result.text)
-				body.content.should.be.exactly("PGRpdj5Db3Vjb3U8L2Rpdj4=")
+				body.content.should.be.exactly("<div>Coucou</div>")
 				body.attributes.encoding.should.be.exactly("7BIT")
 				body.attributes.partID.should.be.exactly("1.2")
 
@@ -120,5 +120,5 @@ Feature "Get message part",
 				result.statusCode.should.be.exactly 200
 			And "the response should contains the part data", ->
 				body = JSON.parse(result.text)
-				body.content.should.be.exactly("6eBAIyUkID19KQ==")
+				body.content.should.be.exactly("Accents: =C3=A0=C3=A8=C3=AB=C3=A4=C3=84=C3=B9%$!:\"'}{")
 				body.attributes.partID.should.be.exactly("1")
