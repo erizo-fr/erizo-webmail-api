@@ -24,6 +24,7 @@
   ],
   "dependencies": {
     "async": "^0.9.0",
+    "base64-stream": "^0.1.2",
     "bytes": "1",
     "eslint": "^0.21.2",
     "eslint-friendly-formatter": "^1.0.8",
@@ -46,6 +47,7 @@
     "nodemailer-smtp-transport": "^1.0.0",
     "passthrough-counter": "~1.0.0",
     "q": "^1.2.0",
+    "quoted-printable": "^1.0.0",
     "vcardparser": "^1.0.3",
     "xml2js": "^0.4.6"
   },

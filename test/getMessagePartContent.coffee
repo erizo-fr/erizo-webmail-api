@@ -40,7 +40,7 @@ Feature "Get message part content",
 			And "the response should be a HTTP 404", ->
 				result.statusCode.should.be.exactly 404
 
-		Scenario "Get an existing part content", ->
+		Scenario "Get an existing part content encoded in base64", ->
 			result = null
 			error = null
 			Given "An authenticated user", (done)->
@@ -56,8 +56,31 @@ Feature "Get message part content",
 			And "the response should be a HTTP 200", ->
 				result.statusCode.should.be.exactly 200
 			And "the response should contains the part content", ->
-				result.text.should.be.exactly("TODO")
+				result.text.should.be.exactly("Voici le contenu de la PJ")
 			And "the response have the right content type", ->
 				result.header["content-type"].should.be.startWith("text/plain")
 			And "the response have the right content disposition", ->
-				result.header["content-disposition"].should.be.exactly("attachment; filename=\"myAttachment.txt\"")
+				result.header["content-disposition"].should.be.exactly("attachment; filename=\"myAttachment_base64.txt\"")
+
+		Scenario "Get an existing part content encoded in quoted-printable", ->
+			result = null
+			error = null
+			Given "An authenticated user", (done)->
+				app.login(done)
+			When "I send a request", (done)->
+				request.get("/boxes/INBOX/messages/17/parts/1/content").end (err, res)->
+					error = err
+					result = res
+					done()
+			Then "it should get a result", ->
+				should.not.exist error
+				should.exist result
+			And "the response should be a HTTP 200", ->
+				result.statusCode.should.be.exactly 200
+			And "the response should contains the part content", ->
+				result.text.should.be.exactly("Accents: àèëäÄù%$!:\"'}{")
+			And "the response have the right content type", ->
+				result.header["content-type"].should.be.startWith("text/plain")
+				(result.header["content-type"].indexOf("charset=utf-8") > -1).should.be.true
+			And "the response have the right content disposition", ->
+				result.header["content-disposition"].should.be.exactly("attachment; filename=\"attachment\"")

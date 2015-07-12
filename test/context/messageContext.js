@@ -122,8 +122,8 @@ var imapServer = module.exports = hoodiecrow({
 					"\n" +
 					"------lola-?=_1.1\n" +
 					"Content-Type: text/plain\n" +
-					"Content-Disposition: attachment; filename=\"myAttachment.txt\"\n" +
-					"Content-Transfer-Encoding: 7bit\n" +
+					"Content-Disposition: attachment; filename=\"myAttachment_base64.txt\"\n" +
+					"Content-Transfer-Encoding: base64\n" +
 					"\n" +
 					"Vm9pY2kgbGUgY29udGVudSBkZSBsYSBQSg==\n" +
 					"\n" +
