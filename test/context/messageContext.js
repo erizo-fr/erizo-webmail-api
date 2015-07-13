@@ -138,7 +138,6 @@ var imapServer = module.exports = hoodiecrow({
 						"Content-Type: multipart/alternative;\n" +
 						" boundary=\"----sinikael-?=_1-14365652326130.5919539076276124\"\n" +
 						"Date: Fri, 10 Jul 2015 21:53:52 +0000\n" +
-						"Message-Id: <17>\n" +
 						"MIME-Version: 1.0\n" +
 						"\n" +
 						"------sinikael-?=_1-14365652326130.5919539076276124\n" +
@@ -151,6 +150,28 @@ var imapServer = module.exports = hoodiecrow({
 						"Content-Transfer-Encoding: quoted-printable\n" +
 						"\n" +
 						"<div>Accents: =C3=A0=C3=A8=C3=AB=C3=A4=C3=84=C3=B9%$!:\"'}{</div>\n" +
+						"------sinikael-?=_1-14365652326130.5919539076276124--\n",
+				}, {
+					uid: 18,
+					raw: "From: sender one <sender.1@example.com>\r\n" +
+						"To: Me <receiver@example.com>\r\n" +
+						"Subject: hello from 1\r\n" +
+						"Content-Type: multipart/alternative;\n" +
+						" boundary=\"----sinikael-?=_1-14365652326130.5919539076276124\"\n" +
+						"Date: Fri, 10 Jul 2015 21:53:52 +0000\n" +
+						"Message-Id: <8>\n" +
+						"MIME-Version: 1.0\n" +
+						"\n" +
+						"------sinikael-?=_1-14365652326130.5919539076276124\n" +
+						"Content-Type: text/plain; charset=iso-8859-1\n" +
+						"Content-Transfer-Encoding: quoted-printable\n" +
+						"\n" +
+						"Accents: =E0=E8=EB=E4=C4=F9%$!:\"'}{\n" +
+						"------sinikael-?=_1-14365652326130.5919539076276124\n" +
+						"Content-Type: text/html; charset=iso-8859-1\n" +
+						"Content-Transfer-Encoding: quoted-printable\n" +
+						"\n" +
+						"<div>Accents: =E0=E8=EB=E4=C4=F9%$!:\"'}{</div>\n" +
 						"------sinikael-?=_1-14365652326130.5919539076276124--\n",
 				},
 			],

@@ -48,6 +48,7 @@
     "passthrough-counter": "~1.0.0",
     "q": "^1.2.0",
     "quoted-printable": "^1.0.0",
+    "utf8": "^2.1.0",
     "vcardparser": "^1.0.3",
     "xml2js": "^0.4.6"
   },
