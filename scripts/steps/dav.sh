@@ -65,3 +65,7 @@ define("BAIKAL_CONFIGURED_VERSION", '0.2.7')
 EOM
 
 chown -R www-data:www-data /usr/share/nginx/www/dav/
+
+echo "Reload services ..."
+service nginx restart
+service php5-fpm restart

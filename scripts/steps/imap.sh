@@ -22,7 +22,7 @@ sed -i 's/^.*auth_username_format.*$/auth_username_format = %Ln/' /etc/dovecot/c
 sed -i 's/^#disable_plaintext_auth.*$/disable_plaintext_auth = no/' /etc/dovecot/conf.d/10-auth.conf
 
 # Add postmaster address
-sed -i 's/protocol lmtp {/protocol lmtp {\n  postmaster_address = root@localhost/' 20-lmtp.conf
+sed -i 's/protocol lmtp {/protocol lmtp {\n  postmaster_address = root@localhost/' /etc/dovecot/conf.d/20-lmtp.conf
 
 echo "Reload configuration ..."
-/etc/init.d/dovecot restart
+service dovecot restart

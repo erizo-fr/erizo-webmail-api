@@ -33,4 +33,4 @@ EOM
 
 echo "Reload configuration ..."
 update-exim4.conf
-/etc/init.d/exim4 reload
+service exim4 restart

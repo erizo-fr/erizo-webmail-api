@@ -29,7 +29,7 @@ server {
 
 	location ~ ^(.+\.php)(.*) {
 		fastcgi_split_path_info ^(.+\.php)(.*)\$;
-		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		fastcgi_pass localhost:9000;
 		fastcgi_index index.php;
 		include fastcgi_params;
 	}
@@ -41,5 +41,5 @@ server {
 EOM
 
 echo "Reload services ..."
-/etc/init.d/nginx restart
-/etc/init.d/php5-fpm restart
+service nginx restart
+service php5-fpm restart
