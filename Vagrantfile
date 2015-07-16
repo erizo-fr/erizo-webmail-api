@@ -75,6 +75,7 @@ Vagrant.configure(2) do |config|
 
 
 	# Provisioning
+	config.vm.provision "shell", inline: "chmod -R a+x /vagrant/scripts"
 	config.vm.provision "shell", inline: "/vagrant/scripts/provision.sh"
 end
 
