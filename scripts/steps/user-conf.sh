@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo ""
+echo "--------------------------------------------------"
+echo "User conf ..."
+echo "--------------------------------------------------"
+
 # Update APT repo
 apt-get update > /dev/null
 
