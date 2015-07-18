@@ -1,5 +1,6 @@
 {
 	"app": {
+		"rootUrl": "/",
 		"port": 8081,
 		"user": {
 			"defaultIdentity": "%LOGIN@localhost"
