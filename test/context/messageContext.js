@@ -224,6 +224,38 @@ var imapServer = module.exports = hoodiecrow({
 								"scenarioPathChange": {},
 							},
 						},
+						"getMessage": {
+							"messages": [
+								{
+									uid: 1,
+									raw: "From: sender one <sender.1@example.com>\r\n" +
+										"To: Me <receiver@example.com>\r\n" +
+										"Subject: This message will be marked as seen\r\n" +
+										"Message-Id: <getMessage_1>\r\n" +
+										"Date: Fri, 13 Sep 2013 15:01:00 +0300\r\n" +
+										"\r\n" +
+										"Hidden but not for long",
+								}, {
+									uid: 2,
+									raw: "From: sender one <sender.1@example.com>\r\n" +
+										"To: Me <receiver@example.com>\r\n" +
+										"Subject: This message will not be marked as seen\r\n" +
+										"Message-Id: <getMessage_2>\r\n" +
+										"Date: Fri, 13 Sep 2013 15:01:00 +0300\r\n" +
+										"\r\n" +
+										"Hidden",
+								}, {
+									uid: 3,
+									raw: "From: sender one <sender.1@example.com>\r\n" +
+										"To: Me <receiver@example.com>\r\n" +
+										"Subject: Yo subject\r\n" +
+										"Message-Id: <getMessage_3>\r\n" +
+										"Date: Fri, 13 Sep 2013 15:01:00 +0300\r\n" +
+										"\r\n" +
+										"Yo",
+								},
+							],
+						},
 						"deleteMessage": {
 							"messages": [
 								{
