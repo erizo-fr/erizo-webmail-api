@@ -58,19 +58,7 @@ Vagrant.configure(2) do |config|
 	# Provider
 	config.vm.provider "virtualbox" do |v|
 		v.name = "erizo-webmail-api"
-
-		# Give VM 1/4 system memory & access to all cpu cores on the host
-		host = RbConfig::CONFIG['host_os']
-		if host =~ /darwin/
-			cpus = `sysctl -n hw.ncpu`.to_i
-		elsif host =~ /linux/
-			cpus = `nproc`.to_i
-		else # sorry Windows folks, I can't help you
-			cpus = 1
-		end
-
-		v.customize ["modifyvm", :id, "--memory", 512]
-		v.customize ["modifyvm", :id, "--cpus", cpus]
+		v.cpus = 1
 	end
 
 
